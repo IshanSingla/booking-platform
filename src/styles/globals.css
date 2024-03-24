@@ -2,32 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.gradient {
+  background: hsla(43, 83%, 93%, 1);
+  background: linear-gradient(90deg, hsla(43, 83%, 93%, 1) 0%, hsla(60, 100%, 86%, 1) 100%);
+  background: -moz-linear-gradient(90deg, hsla(43, 83%, 93%, 1) 0%, hsla(60, 100%, 86%, 1) 100%);
+  background: -webkit-linear-gradient(90deg, hsla(43, 83%, 93%, 1) 0%, hsla(60, 100%, 86%, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FCF4DF", endColorstr="#EFEBE0", GradientType=1 );
 }
