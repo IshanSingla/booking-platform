@@ -1,7 +1,13 @@
+import GlobalLayout, { GlobalLoginLayout } from '@/layout/global';
+import { NextPageWithLayout } from '@/types/global';
 import React from 'react'
 
-export default function myOrginization() {
+const Page: NextPageWithLayout = () => {
   return (
     <div>myOrginization</div>
   )
-}
+};
+
+Page.getLayout = GlobalLoginLayout;
+
+export default Page;

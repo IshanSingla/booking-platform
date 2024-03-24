@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// User table
+model User {
+  id          String    @id @default(uuid())  @map("_id")
+  name        String
+  phoneNumber String    @unique(map: "phoneNumber_1")
+  role        String?   // Assuming the role can be null or one of the specified values
+  loginIp     String
+  loginDevice String
+  createdAt   DateTime? @default(now()) @db.Date
+  updatedAt   DateTime? @updatedAt @db.Date
+}
+
+// Otp table for phone number OTPs
+model PhoneOtp {
+  id          String    @id @default(uuid())  @map("_id")
+  phoneNumber String
+  otp         String
+  expTime     DateTime  @db.Date
+  createdAt   DateTime? @default(now()) @db.Date
+  updatedAt   DateTime? @updatedAt @db.Date
+}
+
+// Organization table
+model Organization {
+  id           String    @id @default(uuid()) // Assuming UUID as primary key
+  name         String
+  displayName  String?
+  address      String?
+  pincode      String?
+  description  String?
+  logo         String?   // Assuming the logo is stored as a file path or URL
+  categories   Category[] // List of categories associated with the organization
+  isVerified   Boolean   @default(false)
+  phoneNumber  String?
+  email        String?
+  website      String?
+  createdAt    DateTime? @default(now()) @db.Date
+  updatedAt    DateTime? @updatedAt @db.Date
+}
+
+// Category table
+model Category {
+  id        String    @id @default(uuid()) // Assuming UUID as primary key
+  name      String
+  image     String?   // Assuming the image is stored as a file path or URL
+  createdAt DateTime? @default(now()) @db.Date
+  updatedAt DateTime? @updatedAt @db.Date
+}

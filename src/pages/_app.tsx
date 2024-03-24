@@ -7,8 +7,7 @@ import { SessionProvider } from "next-auth/react";
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
-
-    <SessionProvider >
+    <SessionProvider session={pageProps.session}>
       <UserContext>
         {getLayout(<Component {...pageProps} />)}
       </UserContext>
