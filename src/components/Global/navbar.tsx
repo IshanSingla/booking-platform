@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,10 +13,27 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export default function Navbar() {
+    // const [isScrolled, setIsScrolled] = useState(false);
+    // const scrollRef = useRef<HTMLElement|null>(null); 
+    // const handleScroll = () => {
+    //     // Check for scroll only once on component mount
+    //     if (!scrollRef.current) {
+    //       setIsScrolled(window.scrollY > 0);
+    //       scrollRef.current = true; // Flag to prevent further checks
+    //     }
+    //   };
+    
+    //   React.useEffect(() => {
+    //     // Run handleScroll on initial render and window resize
+    //     handleScroll();
+    //     window.addEventListener('resize', handleScroll);
+    
+    //     return () => window.removeEventListener('resize', handleScroll);
+    //   }, []);
     return (
         <nav id="header" className="fixed w-full z-30 top-0">
             <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-                <div className="pl-4 flex items-center">
+                <div className="flex items-center">
                     <a className="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
                         Logo
                     </a>

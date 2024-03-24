@@ -15,11 +15,11 @@ export default function Contact() {
                         </div>
                     </div>
                     <div className="w-full h-full flex items-center justify-center">
-                        <div className="w-full h-full flex justify-center items-center gap-5">
-                            <div className="w-1/2 h-full pr-6">
+                        <div className="w-full h-full flex justify-between items-center gap-5">
+                            <div className="w-1/2 h-full">
                                 <ul className="mb-6 md:mb-0">
                                     <li className="flex">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-blue-900 text-gray-50">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-[#bdfbe6] text-black">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                 stroke-linejoin="round" className="h-6 w-6">
@@ -37,7 +37,7 @@ export default function Contact() {
                                         </div>
                                     </li>
                                     <li className="flex">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-blue-900 text-gray-50">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-[#bdfbe6] text-black">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                 stroke-linejoin="round" className="h-6 w-6">
@@ -56,7 +56,7 @@ export default function Contact() {
                                         </div>
                                     </li>
                                     <li className="flex">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-blue-900 text-gray-50">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-[#bdfbe6] text-black">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                 stroke-linejoin="round" className="h-6 w-6">
@@ -73,7 +73,7 @@ export default function Contact() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="card h-full w-1/2" id="form">
+                            <div className="card h-full w-[40%]" id="form">
                                 <h2 className="mb-4 text-2xl font-bold">Ready to Get Started?</h2>
                                 <form id="contactForm">
                                     <div className="mb-6">
@@ -93,7 +93,7 @@ export default function Contact() {
                                         </div>
                                     </div>
                                     <div className="text-center">
-                                        <button type="submit" className="w-full bg-blue-800 text-white px-6 py-3 font-xl rounded-md sm:mb-0">Send Message</button>
+                                        <button type="submit" className="w-full bg-[#bdfbe6] text-black px-6 py-3 font-xl rounded-md sm:mb-0">Send Message</button>
                                     </div>
                                 </form>
                             </div>

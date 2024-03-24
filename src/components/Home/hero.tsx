@@ -4,8 +4,8 @@ import Image from 'next/image'
 export default function Hero() {
     return (
         <>
-            <div className="pt-16 h-full flex justify-center items-center">
-                <div className="flex flex-wrap flex-col md:flex-row items-center justify-center">
+            <div className="pt-16 h-fullflex justify-between items-center">
+                <div className="container mx-auto flex flex-wrap flex-col md:flex-row items-center justify-between">
                     <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
                         <p className="uppercase tracking-loose w-full">What business are you?</p>
                         <h1 className="my-4 text-5xl font-bold leading-tight">

@@ -9,3 +9,19 @@
   background: -webkit-linear-gradient(90deg, hsla(43, 83%, 93%, 1) 0%, hsla(60, 100%, 86%, 1) 100%);
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FCF4DF", endColorstr="#EFEBE0", GradientType=1 ); */
 }
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
+
+/* * {
+  border: 1px solid red;
+} */

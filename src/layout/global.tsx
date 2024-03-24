@@ -10,6 +10,7 @@ export function Layout(props: { children: React.ReactNode }) {
         </main>
     );
 }
+
 const GlobalLayout = (page: ReactElement) => <Layout>{page}</Layout>;
 
 export default GlobalLayout;
