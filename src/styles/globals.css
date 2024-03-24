@@ -5,7 +5,7 @@
 .gradient {
   background: hsla(43, 83%, 93%, 1);
   background: linear-gradient(90deg, hsla(43, 83%, 93%, 1) 0%, hsla(60, 100%, 86%, 1) 100%);
-  background: -moz-linear-gradient(90deg, hsla(43, 83%, 93%, 1) 0%, hsla(60, 100%, 86%, 1) 100%);
+  /* background: -moz-linear-gradient(90deg, hsla(43, 83%, 93%, 1) 0%, hsla(60, 100%, 86%, 1) 100%);
   background: -webkit-linear-gradient(90deg, hsla(43, 83%, 93%, 1) 0%, hsla(60, 100%, 86%, 1) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FCF4DF", endColorstr="#EFEBE0", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FCF4DF", endColorstr="#EFEBE0", GradientType=1 ); */
 }

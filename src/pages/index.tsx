@@ -1,20 +1,18 @@
-import Navbar from "@/components/Global/navbar";
-import About from "@/components/Home/about";
-import Contact from "@/components/Home/contact";
-import Hero from "@/components/Home/hero";
-import Image from "next/image";
-import Services from "@/components/Home/services";
-import Footer from "@/components/Global/footer";
+import { About, Contact, Hero, Services } from "@/components/Home";
+import GlobalLayout from "@/layout/global";
+import { NextPageWithLayout } from "@/types/global";
 
-export default function Home() {
+const Page: NextPageWithLayout = () => {
   return (
-    <main className="gradient">
-    <Navbar />
-    <Hero />
-    <About />
-    <Services />
-    <Contact />
-    <Footer />
-    </main>
+    <>
+      <Hero />
+      <About />
+      <Services />
+      <Contact />
+    </>
   );
-}
+};
+
+Page.getLayout = GlobalLayout;
+
+export default Page;
