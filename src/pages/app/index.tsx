@@ -6,32 +6,32 @@ import { categoryType } from '@/types/category';
 import Page from '..';
 import GlobalLayout from '@/layout/global';
 
-let arr: categoryType[]= [{
-    id: '88',
-    image: category1,
-    name: 'hello',
-    description: 'bla bla bla'
-  }, {
-    id: '89',
-    image: category1,
-    name: 'hello',
-    description: 'bla bla bla'
-  }, {
-    id: '89',
-    image: category1,
-    name: 'hello',
-    description: 'bla bla bla'
-  }, {
-    id: '89',
-    image: category1,
-    name: 'hello',
-    description: 'bla bla bla'
-  }, {
-    id: '89',
-    image: category1,
-    name: 'hello',
-    description: 'bla bla bla'
-  }];
+let arr: categoryType[] = [{
+  id: '88',
+  image: category1,
+  name: 'hello',
+  description: 'bla bla bla'
+}, {
+  id: '89',
+  image: category1,
+  name: 'hello',
+  description: 'bla bla bla'
+}, {
+  id: '89',
+  image: category1,
+  name: 'hello',
+  description: 'bla bla bla'
+}, {
+  id: '89',
+  image: category1,
+  name: 'hello',
+  description: 'bla bla bla'
+}, {
+  id: '89',
+  image: category1,
+  name: 'hello',
+  description: 'bla bla bla'
+}];
 
 function App() {
   return (
@@ -40,9 +40,10 @@ function App() {
         <div className='h-10'></div>
         <div className='text-center font-bold text-4xl'>Category</div>
         <div className='w-full h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-3 p-3 '>
-          {arr.map((card)=> {
+          {arr.map((card, index) => {
             return (
-              <ListOrganization 
+              <ListOrganization
+                key={index}
                 data={card}
               />
             );
@@ -52,5 +53,5 @@ function App() {
     </>
   )
 }
-App.getLayout= GlobalLayout
+App.getLayout = GlobalLayout
 export default App;
