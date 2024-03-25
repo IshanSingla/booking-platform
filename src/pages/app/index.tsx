@@ -39,7 +39,7 @@ function App() {
       <section id='Category' className='w-full h-full flex flex-col gap-6 bg-white'>
         <div className='h-10'></div>
         <div className='text-center font-bold text-4xl'>Category</div>
-        <div className='w-full h-full grid grid-cols-3 place-items-center gap-3 p-3 '>
+        <div className='w-full h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-3 p-3 '>
           {arr.map((card)=> {
             return (
               <ListOrganization 
