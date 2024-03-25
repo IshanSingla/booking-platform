@@ -11,12 +11,13 @@ generator client {
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 // User table
 model User {
   id          String    @id @default(uuid())  @map("_id")
-  name        String
+  name        String?
   phoneNumber String    @unique(map: "phoneNumber_1")
   role        String?   // Assuming the role can be null or one of the specified values
   loginIp     String
@@ -35,29 +36,29 @@ model PhoneOtp {
   updatedAt   DateTime? @updatedAt @db.Date
 }
 
+// Category table
+model Category {
+  id        String    @id @default(uuid()) @map("_id") // Assuming UUID as primary key
+  name      String
+  description      String
+  image     String?   // Assuming the image is stored as a file path or URL
+  createdAt DateTime? @default(now()) @db.Date
+  updatedAt DateTime? @updatedAt @db.Date
+}
+
 // Organization table
 model Organization {
-  id           String    @id @default(uuid()) // Assuming UUID as primary key
+  id           String    @id @default(uuid()) @map("_id") // Assuming UUID as primary key
   name         String
   displayName  String?
   address      String?
   pincode      String?
   description  String?
   logo         String?   // Assuming the logo is stored as a file path or URL
-  categories   Category[] // List of categories associated with the organization
   isVerified   Boolean   @default(false)
   phoneNumber  String?
   email        String?
   website      String?
   createdAt    DateTime? @default(now()) @db.Date
   updatedAt    DateTime? @updatedAt @db.Date
-}
-
-// Category table
-model Category {
-  id        String    @id @default(uuid()) // Assuming UUID as primary key
-  name      String
-  image     String?   // Assuming the image is stored as a file path or URL
-  createdAt DateTime? @default(now()) @db.Date
-  updatedAt DateTime? @updatedAt @db.Date
 }
