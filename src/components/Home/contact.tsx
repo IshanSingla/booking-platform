@@ -15,10 +15,10 @@ export default function Contact() {
                         </div>
                     </div>
                     <div className="w-full h-full flex items-center justify-center">
-                        <div className="w-full h-full flex justify-between items-center gap-5">
-                            <div className="w-1/2 h-full">
+                        <div className="w-full h-full flex flex-col sm:flex-row justify-between items-center gap-5">
+                            <div className="w-[60%] h-full">
                                 <ul className="mb-6 md:mb-0">
-                                    <li className="flex">
+                                    <li className="flex items-center">
                                         <div className="flex h-10 w-10 items-center justify-center rounded bg-[#bdfbe6] text-black">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -36,7 +36,7 @@ export default function Contact() {
                                             <p className="text-gray-600 dark:text-slate-400">New York, EEUU</p>
                                         </div>
                                     </li>
-                                    <li className="flex">
+                                    <li className="flex items-center">
                                         <div className="flex h-10 w-10 items-center justify-center rounded bg-[#bdfbe6] text-black">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -55,7 +55,7 @@ export default function Contact() {
                                             <p className="text-gray-600 dark:text-slate-400">Mail: tailnext@gmail.com</p>
                                         </div>
                                     </li>
-                                    <li className="flex">
+                                    <li className="flex items-center">
                                         <div className="flex h-10 w-10 items-center justify-center rounded bg-[#bdfbe6] text-black">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -73,7 +73,7 @@ export default function Contact() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="card h-full w-[40%]" id="form">
+                            <div className="card h-full w-[8                        0%] md:w-[40%]" id="form">
                                 <h2 className="mb-4 text-2xl font-bold">Ready to Get Started?</h2>
                                 <form id="contactForm">
                                     <div className="mb-6">

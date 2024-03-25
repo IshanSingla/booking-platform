@@ -25,7 +25,7 @@ export default function Services() {
                                 </p>
                             </a>
                         </div>
-                        <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow">
+                        <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-3">
                             <div className="flex items-center justify-start">
                                 <button className="mx-auto lg:mx-0 hover:underline gradient font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                                     Action
@@ -47,9 +47,9 @@ export default function Services() {
                             </p>
                             </a>
                         </div>
-                        <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow">
+                        <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-3">
                             <div className="flex items-center justify-center">
-                            <button className="mx-auto lg:mx-0 hover:underline gradient  font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                            <button className="mx-auto lg:mx-0 hover:underline gradient font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                                 Action
                             </button>
                             </div>
@@ -69,7 +69,7 @@ export default function Services() {
                             </p>
                             </a>
                         </div>
-                        <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow">
+                        <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-3">
                             <div className="flex items-center justify-end">
                                 <button className="mx-auto lg:mx-0 hover:underline gradient font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                                     Action

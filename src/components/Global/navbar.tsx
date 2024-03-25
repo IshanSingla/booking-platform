@@ -9,8 +9,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+ 
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 export default function Navbar() {
     // const [isScrolled, setIsScrolled] = useState(false);
@@ -39,7 +49,7 @@ export default function Navbar() {
                     </a>
                 </div>
                 <div className="block lg:hidden pr-4">
-                <button id="nav-toggle" className="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                    <button id="nav-toggle" className="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                     <svg className="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <title>Menu</title>
                     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
@@ -63,7 +73,7 @@ export default function Navbar() {
                 </ul>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="outline">Get Started</Button>
+                        <button>Get Started</button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px] bg-white !rounded-xl">
                         <DialogHeader>
@@ -74,20 +84,20 @@ export default function Navbar() {
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="name" className="text-right">
+                            <label htmlFor="name" className="text-right">
                             Name
-                            </Label>
+                            </label>
                             <Input id="name" value="John Dae" className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="username" className="text-right">
+                            <label htmlFor="username" className="text-right">
                             Username
-                            </Label>
+                            </label>
                             <Input id="username" value="@pedujohn" className="col-span-3" />
                         </div>
                         </div>
                         <DialogFooter>
-                        <Button type="submit">Create Account</Button>
+                            <button type="submit">Create Account</button>
                         </DialogFooter>
                     </DialogContent>
                     </Dialog>
