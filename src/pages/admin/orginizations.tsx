@@ -22,7 +22,7 @@ const Page: NextPageWithLayout = () => {
             <TableRow>
               <TableCell className="font-medium">John Doe</TableCell>
               <TableCell>Admin</TableCell>
-              <TableCell>Acme Inc</TableCell>
+              <TableCell>LOGO</TableCell>
               <TableCell className="text-right">
                 <Button size="icon" variant="ghost">
                   <FileEditIcon className="w-4 h-4" />
@@ -66,7 +66,7 @@ const Page: NextPageWithLayout = () => {
             <TableRow>
               <TableCell className="font-medium">Alex Brown</TableCell>
               <TableCell>User</TableCell>
-              <TableCell>Acme Inc</TableCell>
+              <TableCell>LOGO</TableCell>
               <TableCell className="text-right">
                 <Button size="icon" variant="ghost">
                   <FileEditIcon className="w-4 h-4" />

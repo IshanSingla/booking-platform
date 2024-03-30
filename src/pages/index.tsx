@@ -46,7 +46,7 @@ const Page: NextPageWithLayout = () => {
       <section className="w-full py-6 md:py-12 lg:py-24 xl:py-32" id="about">
         <div className="container flex flex-col items-center justify-center space-y-4 px-4 text-center md:px-6">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Acme Inc</h1>
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">About LOGO</h1>
             <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
               {"We're on a mission to help teams build the best web experiences. Our platform provides the tools and workflow to innovate."}
             </p>

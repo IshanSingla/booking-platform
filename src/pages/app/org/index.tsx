@@ -34,7 +34,7 @@ const Page: NextPageWithLayout = () => {
             <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10">
                 <Card className="flex flex-col gap-2" onClick={() => router.push('/app/org/123')}>
                     <CardHeader className="pb-0">
-                        <CardTitle className="text-2xl font-bold leading-none">Acme Inc</CardTitle>
+                        <CardTitle className="text-2xl font-bold leading-none">LOGO</CardTitle>
                         <CardDescription>
                             The description of the organization goes here. It can be a little bit longer.
                         </CardDescription>
