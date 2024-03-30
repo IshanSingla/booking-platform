@@ -38,23 +38,23 @@ model PhoneOtp {
 
 // Category table
 model Category {
-  id        String    @id @default(uuid()) @map("_id") // Assuming UUID as primary key
+  id        String    @id @default(uuid()) @map("_id") 
   name      String
   description      String
-  image     String?   // Assuming the image is stored as a file path or URL
+  image     String?   
   createdAt DateTime? @default(now()) @db.Date
   updatedAt DateTime? @updatedAt @db.Date
 }
 
 // Organization table
 model Organization {
-  id           String    @id @default(uuid()) @map("_id") // Assuming UUID as primary key
+  id           String    @id @default(uuid()) @map("_id")
   name         String
   displayName  String?
   address      String?
   pincode      String?
   description  String?
-  logo         String?   // Assuming the logo is stored as a file path or URL
+  logo         String? 
   isVerified   Boolean   @default(false)
   phoneNumber  String?
   email        String?

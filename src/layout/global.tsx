@@ -4,11 +4,11 @@ import React, { ReactElement } from "react";
 
 export function Layout(props: { children: React.ReactNode }) {
     return (
-        <main className="gradient">
+        <div className="flex flex-col min-h-screen h-full w-full ">
             <Navbar />
             {props.children}
             <Footer />
-        </main>
+        </div>
     );
 }
 
