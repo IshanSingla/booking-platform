@@ -21,7 +21,7 @@ export default function Navbar() {
     //     return () => window.removeEventListener('resize', handleScroll);
     //   }, []);
     return (
-        <header className="px-4 lg:px-6 h-14 flex items-center">
+        <header className="px-4 lg:px-6 h-[6vh] flex items-center">
             <Link className="flex items-center justify-center" href="/">
                 <MountainIcon className="h-6 w-6" />
                 <span className="sr-only text-gray-500 dark:text-gray-400">LOGO</span>

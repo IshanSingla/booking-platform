@@ -1,4 +1,4 @@
-import GlobalLayout, { GlobalLoginLayout } from '@/layout/global';
+import { GlobalLoginLayout } from '@/layout/global';
 import { NextPageWithLayout } from '@/types/global';
 import React from 'react'
 
