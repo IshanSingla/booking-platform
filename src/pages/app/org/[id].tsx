@@ -1,10 +1,11 @@
 import { GraduationCapIcon } from "lucide-react";
 import { NextPageWithLayout } from "@/types/global"
 import GlobalLayout from "@/layout/global";
+import Image from "next/image";
 
 const Page: NextPageWithLayout = () => {
     return (
-        <>
+        <main className="flex-1 min-h-[87vh]">
             <div className="bg-gray-50/70 py-12 lg:py-16">
                 <div className="container px-4 md:px-6">
                     <div className="grid max-w-6xl gap-10 lg:grid-cols-3 lg:gap-20 lg:mx-auto">
@@ -45,23 +46,25 @@ const Page: NextPageWithLayout = () => {
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">Representative Student</h2>
                         <div className="flex items-center space-x-2">
-                            <img
+                            <Image
                                 alt="Student"
                                 className="rounded-full"
-                                height="100"
+                                height={100}
                                 src="/placeholder.svg"
-                                style={{
-                                    aspectRatio: "100/100",
-                                    objectFit: "cover",
-                                }}
-                                width="100"
+                                width={100}
+                                style={
+                                    {
+                                        aspectRatio: "100/100",
+                                        objectFit: "cover",
+                                    }
+                                }
                             />
                             <p className="text-base font-medium">Sophia Johnson</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </main>
     )
 }
 

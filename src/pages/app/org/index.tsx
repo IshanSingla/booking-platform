@@ -40,9 +40,7 @@ const Page: NextPageWithLayout = () => {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-2">
-                        <div className="rounded-full border w-[120px] h-8 flex items-center justify-center">Tag 1</div>
-                        <div className="rounded-full border w-[120px] h-8 flex items-center justify-center">Tag 2</div>
-                        <div className="rounded-full border w-[120px] h-8 flex items-center justify-center">Tag 3</div>
+                        <div className="rounded-md border w-[120px] h-8 flex items-center justify-center">Category 1</div>
                     </CardContent>
                     <CardFooter className="mt-auto grid gap-2">
                         <div className="text-sm font-medium">Contact:</div>
@@ -57,9 +55,7 @@ const Page: NextPageWithLayout = () => {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-2">
-                        <div className="rounded-full border w-[120px] h-8 flex items-center justify-center">Tag 1</div>
-                        <div className="rounded-full border w-[120px] h-8 flex items-center justify-center">Tag 2</div>
-                        <div className="rounded-full border w-[120px] h-8 flex items-center justify-center">Tag 3</div>
+                        <div className="rounded-md border w-[120px] h-8 flex items-center justify-center">Category 1</div>
                     </CardContent>
                     <CardFooter className="mt-auto grid gap-2">
                         <div className="text-sm font-medium">Contact:</div>

@@ -4,24 +4,66 @@ import { Input } from "@/components/ui/input";
 import GlobalLayout from "@/layout/global";
 import { NextPageWithLayout } from "@/types/global";
 import { CodeIcon, ContainerIcon, GitCommitIcon, MountainIcon, RocketIcon } from "lucide-react";
+import Image from "next/image";
 
 import Link from "next/link"
+
+const data = {
+  hero: {
+    title: "Laurem ipsum dolor sit amet",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+    image: "/placeholder.svg",
+  },
+  about: {
+    title: "About LOGO",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+  },
+  services: {
+    title: "Our Services",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+    list: [
+      {
+        title: "Feature Flags",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+        icon: RocketIcon,
+      },
+      {
+        title: "Lorem ipsum dolor sit amet",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+        icon: CodeIcon,
+      },
+      {
+        title: "Lorem ipsum dolor sit amet",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+        icon: GitCommitIcon,
+      },
+      {
+        title: "Lorem ipsum dolor sit amet",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+        icon: ContainerIcon,
+      },
+    ],
+  },
+  contact: {
+    title: "Experience the workflow the best frontend teams love.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+  },
+}
 
 const Page: NextPageWithLayout = () => {
   return (
     <main className="flex-1">
-      <section className="w-full pt-12 md:pt-24 lg:pt-32" id="home">
-        <div className="container space-y-10 xl:space-y-16">
+      <section className="w-full pt-12 md:pt-24 lg:pt-32 min-h-[94vh]" id="home">
+        <div className="container space-y-10 xl:space-y-16 h-full">
           <div className="grid gap-4 px-10 md:grid-cols-2 md:gap-16">
             <div>
               <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
-                The complete platform for building the Web
+                {data.hero.title}
               </h1>
             </div>
             <div className="flex flex-col items-start space-y-4">
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable.
-                Open Source.
+                {data.hero.description}
               </p>
               <div className="space-x-4">
                 <Link
@@ -34,70 +76,45 @@ const Page: NextPageWithLayout = () => {
               </div>
             </div>
           </div>
-          <img
+          <Image
             alt="Hero"
-            className="mx-auto aspect-[3/1] overflow-hidden rounded-t-xl object-cover"
-            height="300"
-            src="/placeholder.svg"
-            width="1270"
+            className="mx-auto aspect-[3/1] overflow-hidden rounded-xl object-cover"
+            src={data.hero.image}
+            width={1270}
+            height={400}
           />
         </div>
       </section>
-      <section className="w-full py-6 md:py-12 lg:py-24 xl:py-32" id="about">
+      <section className="w-full py-6 md:py-12 lg:py-24 xl:py-32 border-t" id="about">
         <div className="container flex flex-col items-center justify-center space-y-4 px-4 text-center md:px-6">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">About LOGO</h1>
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">{data.about.title}</h1>
             <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-              {"We're on a mission to help teams build the best web experiences. Our platform provides the tools and workflow to innovate."}
+              {data.about.description}
             </p>
           </div>
         </div>
       </section>
-      <section className="w-full py-12 md:py-24 lg:py-32" id="ourServices">
+      <section className="w-full py-12 md:py-24 lg:py-32 border-t " id="ourServices">
         <div className="container grid items-center gap-6 px-4 text-center md:px-6 lg:gap-10">
           <div className="space-y-3">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Services</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{data.services.title}</h2>
             <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-              Let your team focus on shipping features instead of managing infrastructure with automated CI/CD.
+              {data.services.description}
             </p>
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 sm:gap-12 lg:grid-cols-2 lg:gap-20">
-            <div className="flex flex-col items-center space-y-2">
-              <RocketIcon className="h-10 w-10" />
-              <div className="space-y-2">
-                <h3 className="font-bold">Feature Flags</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Control which users see which features with our feature flagging service.
-                </p>
+            {data.services.list.map((service, index) => (
+              <div key={index} className="flex flex-col items-center space-y-2">
+                <service.icon className="h-10 w-10" />
+                <div className="space-y-2">
+                  <h3 className="font-bold">{service.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {service.description}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col items-center space-y-2">
-              <CodeIcon className="h-10 w-10" />
-              <div className="space-y-2">
-                <h3 className="font-bold">Code Review</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Make collaboration seamless with built-in code review tools.
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-2">
-              <GitCommitIcon className="h-10 w-10" />
-              <div className="space-y-2">
-                <h3 className="font-bold">Continuous Integration</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Automate your workflow with continuous integration.
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-2">
-              <ContainerIcon className="h-10 w-10" />
-              <div className="space-y-2">
-                <h3 className="font-bold">Deployment</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Deploy to the cloud with a single click and scale with ease.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -105,10 +122,10 @@ const Page: NextPageWithLayout = () => {
         <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
           <div className="space-y-3">
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              Experience the workflow the best frontend teams love.
+              {data.contact.title}
             </h2>
             <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-              Let your team focus on shipping features instead of managing infrastructure with automated CI/CD.
+              {data.contact.description}
             </p>
           </div>
           <div className="mx-auto w-full max-w-sm space-y-2">
