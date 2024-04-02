@@ -22,7 +22,7 @@ const Page: NextPageWithLayout = () => {
                                 <Label className="text-base" htmlFor="location">
                                     Enter a location
                                 </Label>
-                                <Input className="w-full max-w-[400px] text-2xl" id="location" placeholder="Enter a location" />
+                                <Input className="w-full max-w-[400px] text-xl text-gray-500" id="location" placeholder="Enter a location" />
                             </div>
                             <Button className="w-full md:w-auto" size="lg" >
                                 Search
@@ -31,11 +31,11 @@ const Page: NextPageWithLayout = () => {
                     </div>
                 </div>
             </div>
-            <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10">
+            <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10 bg-white">
                 <Card className="flex flex-col gap-2" onClick={() => router.push('/app/org/123')}>
                     <CardHeader className="pb-0">
                         <CardTitle className="text-2xl font-bold leading-none">LOGO</CardTitle>
-                        <CardDescription>
+                        <CardDescription className="text-gray-500">
                             The description of the organization goes here. It can be a little bit longer.
                         </CardDescription>
                     </CardHeader>
@@ -50,7 +50,7 @@ const Page: NextPageWithLayout = () => {
                 <Card className="flex flex-col gap-2" onClick={() => router.push('/app/org/123')}>
                     <CardHeader className="pb-0">
                         <CardTitle className="text-2xl font-bold leading-none">Example Corp</CardTitle>
-                        <CardDescription>
+                        <CardDescription className="text-gray-500">
                             The description of the organization goes here. It can be a little bit longer.
                         </CardDescription>
                     </CardHeader>

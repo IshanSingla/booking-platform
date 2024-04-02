@@ -53,21 +53,21 @@ const data = {
 const Page: NextPageWithLayout = () => {
   return (
     <main className="flex-1">
-      <section className="w-full pt-12 md:pt-24 lg:pt-32 min-h-[94vh]" id="home">
+      <section className="w-full pt-12 md:pt-24 lg:pt-32 min-h-[94vh] " id="home">
         <div className="container space-y-10 xl:space-y-16 h-full">
           <div className="grid gap-4 px-10 md:grid-cols-2 md:gap-16">
             <div>
-              <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
+              <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem] text-[#275e5b]">
                 {data.hero.title}
               </h1>
             </div>
             <div className="flex flex-col items-start space-y-4">
-              <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+              <p className="mx-auto max-w-[700px] md:text-xl dark:text-gray-400">
                 {data.hero.description}
               </p>
               <div className="space-x-4">
                 <Link
-                  className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300 "
+                  className="inline-flex h-9 items-center justify-center rounded-md bg-[#144d53] px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-[#1a3c40] focus-visible:outline-none focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300 "
                   href="/app"
                 >
                   Get Started
@@ -88,7 +88,7 @@ const Page: NextPageWithLayout = () => {
       <section className="w-full py-6 md:py-12 lg:py-24 xl:py-32 border-t" id="about">
         <div className="container flex flex-col items-center justify-center space-y-4 px-4 text-center md:px-6">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">{data.about.title}</h1>
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl ">{data.about.title}</h1>
             <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
               {data.about.description}
             </p>

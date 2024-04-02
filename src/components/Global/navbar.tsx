@@ -21,7 +21,7 @@ export default function Navbar() {
     //     return () => window.removeEventListener('resize', handleScroll);
     //   }, []);
     return (
-        <header className="px-4 lg:px-6 h-[6vh] flex items-center">
+        <header className="px-4 lg:px-6 lgh-[6vh] flex items-center bg-[#144d53] text-white py-4">
             <Link className="flex items-center justify-center" href="/">
                 <MountainIcon className="h-6 w-6" />
                 <span className="sr-only text-gray-500 dark:text-gray-400">LOGO</span>
@@ -38,7 +38,7 @@ export default function Navbar() {
                 </Link>
             </nav>
             <Link
-                className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300 "
+                className="inline-flex h-9 items-center justify-center rounded-md bg-[#f5f5f5] px-4 py-2 text-sm font-medium text-[#1a3c40] shadow transition-colors hover:bg-[#dddddd] focus-visible:outline-none focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300 "
                 href="/app"
             >
                 Get Started

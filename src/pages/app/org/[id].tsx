@@ -18,7 +18,7 @@ const Page: NextPageWithLayout = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="grid gap-6 text-center lg:grid-cols-1 lg:items-start lg:gap-4">
+                        <div className="grid gap-6 text-center lg:grid-cols-1 lg:items-start lg:gap-4 ">
                             <div className="space-y-2">
                                 <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">ABC Board of Education</h2>
                                 <p className="text-sm text-gray-500 dark:text-gray-400">Providing quality education since 1990</p>
@@ -35,7 +35,7 @@ const Page: NextPageWithLayout = () => {
                     </div>
                 </div>
             </div>
-            <div className="container py-12 lg:py-16">
+            <div className="container py-12 lg:py-16 bg-white">
                 <div className="grid max-w-6xl gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-20 lg:mx-auto">
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">Playground Availability</h2>

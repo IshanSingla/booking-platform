@@ -60,7 +60,7 @@ const list = [
 const Page: NextPageWithLayout = () => {
   const router = useRouter()
   return (
-    <main className="flex items-center justify-center min-h-[87vh] p-4">
+    <main className="flex items-center justify-center min-h-[87vh] p-4 ">
       <div className="grid gap-4 w-full max-w-2xl">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Choose a category</h1>
@@ -68,7 +68,7 @@ const Page: NextPageWithLayout = () => {
             {"Let's find the perfect match for your mood."}
           </p>
         </div>
-        <Card>
+        <Card className="bg-white">
           <CardContent className="p-0">
             <div className="grid gap-3 md:gap-5 sm:grid-cols-2 lg:grid-cols-3 p-4">
               {list.map((service, index) => (
