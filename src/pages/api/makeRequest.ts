@@ -1,23 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {prisma} from "@/lib/prisma"
-type Data = {
-  name: string;
-};
+import { prisma } from "@/lib/prisma"
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse<any>,
 ) {
-  if (req.method=="GET"){
-    // prisma.category.findMany()
-    res.status(200).json({ name: "John Doe" });
+  if (req.method == "POST") {
+    const formData: FormData = req.body;
+    const createdItem = await prisma.request.create({ data: formData });
+    res.status(201).json("Request created");
   }
-  else if (req.method=="POST"){
-    res.status(200).json({ name: "John Doe" });
-  }
-  else{
-    // res.status(404).json({
-    //     message: "Not Found"
-    // });
+  else {
+    res.status(404).json("Not Found");
   }
 }

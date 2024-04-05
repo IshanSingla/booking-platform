@@ -13,12 +13,15 @@ declare module "next-auth" {
             id: string;
             name: string;
             phoneNumber: string;
-            
+
             role: null | 'admin' | 'user' | 'organization';
             loginIp: string;
             loginDevice: string;
             createdAt: Date;
             updatedAt: Date;
         },
+    }
+    interface JWT {
+        id: string;
     }
 }

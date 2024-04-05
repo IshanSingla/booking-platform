@@ -1,6 +1,8 @@
+"client side"
 import React from 'react'
 import Link from 'next/link'
 import { MountainIcon } from 'lucide-react'
+import Login from './login';
 
 export default function Navbar() {
     // const [isScrolled, setIsScrolled] = useState(false);
@@ -37,12 +39,13 @@ export default function Navbar() {
                     Our Services
                 </Link>
             </nav>
-            <Link
+            <Login />
+            {/* <Link
                 className="inline-flex h-9 items-center justify-center rounded-md bg-[#f5f5f5] px-4 py-2 text-sm font-medium text-[#1a3c40] shadow transition-colors hover:bg-[#dddddd] focus-visible:outline-none focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300 "
                 href="/app"
             >
                 Get Started
-            </Link>
+            </Link> */}
         </header>
     );
 }

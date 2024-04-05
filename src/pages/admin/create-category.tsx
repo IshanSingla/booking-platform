@@ -2,17 +2,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
 import { NextPageWithLayout } from "@/types/global";
-import { useState } from "react";
-import { createCategory } from "../api/admin/categories";
+import { FormEvent } from "react";
+import axios from "axios";
 
 const Page: NextPageWithLayout = () => {
-   const [name, setName] = useState("");
-   const [description, setDescription] = useState("");
-   const [image, setImage] = useState("");
 
-   const handleSubmit = async () => {
-      const formData = { name, description, image };
-      await createCategory(formData);
+   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      let form: any = e.target;
+      const formData = { name: form?.name?.value, description: form?.description.value, image: form?.image.value };
+      try {
+         const data = await axios.post("/api/admin/categories", formData);
+         if (data.status === 201) {
+            alert("Category created successfully");
+         } else {
+            alert("An error occurred");
+         };
+      } catch (error: any) {
+         alert(error.message);
+      }
+
    };
    return (
       <form
@@ -28,12 +37,11 @@ const Page: NextPageWithLayout = () => {
                Category Name
             </label>
             <Input
-               value={name}
-               onChange={(e) => setName(e.target.value)}
                className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                type="text"
                placeholder="Enter category name"
                id="name"
+               required={true}
             />
             <p className="mt-1 text-xs text-gray-500">
                *This field is required
@@ -47,16 +55,11 @@ const Page: NextPageWithLayout = () => {
                Description
             </label>
             <Input
-               value={description}
-               onChange={(e) => setDescription(e.target.value)}
                className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                type="text"
                placeholder="Enter description"
                id="description"
             />
-            <p className="mt-1 text-xs text-gray-500">
-               *This field is required
-            </p>
          </div>
          <div className="w-full md:w-1/3">
             <label
@@ -66,16 +69,11 @@ const Page: NextPageWithLayout = () => {
                Image URL
             </label>
             <Input
-               value={image}
-               onChange={(e) => setImage(e.target.value)}
                className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                type="text"
                placeholder="Enter image URL"
                id="image"
             />
-            <p className="mt-1 text-xs text-gray-500">
-               *This field is required
-            </p>
          </div>
          <div className="w-full md:w-1/3 text-center">
             <Button

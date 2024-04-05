@@ -3,6 +3,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { Package2Icon } from 'lucide-react'
+import Image from 'next/image'
 
 export default function AdminNavBar() {
     return (
@@ -42,16 +43,16 @@ export default function AdminNavBar() {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button className="rounded-full" size="icon" variant="ghost">
-                            <img
+                            <Image
                                 alt="Avatar"
                                 className="rounded-full"
-                                height="32"
+                                height={32}
                                 src="/placeholder.svg"
+                                width={32}
                                 style={{
                                     aspectRatio: "32/32",
                                     objectFit: "cover",
                                 }}
-                                width="32"
                             />
                             <span className="sr-only">Toggle user menu</span>
                         </Button>
