@@ -1,4 +1,3 @@
-import { About, Contact, Hero, Services } from "@/components/Home";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import GlobalLayout from "@/layout/global";

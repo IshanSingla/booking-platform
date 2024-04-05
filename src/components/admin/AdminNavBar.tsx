@@ -4,6 +4,7 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { Package2Icon } from 'lucide-react'
 import Image from 'next/image'
+import Login from '../Global/login'
 
 export default function AdminNavBar() {
     return (
@@ -40,32 +41,7 @@ export default function AdminNavBar() {
                         />
                     </div> */}
                 </form>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button className="rounded-full" size="icon" variant="ghost">
-                            <Image
-                                alt="Avatar"
-                                className="rounded-full"
-                                height={32}
-                                src="/placeholder.svg"
-                                width={32}
-                                style={{
-                                    aspectRatio: "32/32",
-                                    objectFit: "cover",
-                                }}
-                            />
-                            <span className="sr-only">Toggle user menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-white">
-                        <DropdownMenuLabel>LOGO</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Settings</DropdownMenuItem>
-                        <DropdownMenuItem>Support</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Logout</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <Login />
             </div>
         </header>
     )

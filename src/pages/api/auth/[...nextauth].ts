@@ -141,8 +141,9 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
             secret: process.env.NEXTAUTH_SECRET ?? "hi",
         },
         pages: {
-            signIn: "/",
+            signIn: "/app",
             error: "/",
+            signOut: "/",
         },
     };
     return options;

@@ -3,9 +3,30 @@ import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout"
 import { NextPageWithLayout } from "@/types/global"
+import { AdminOverviewProps } from "@/types/responseTypes"
+import axios from "axios"
 import { BuildingIcon, FileEditIcon, ListIcon, MailIcon, UsersIcon } from "lucide-react"
+import React from "react"
 
 const Page: NextPageWithLayout = () => {
+  const [data, setData] = React.useState<AdminOverviewProps>({
+    category: 0,
+    organization: 0,
+    request: 0,
+    user: 0,
+    admins: [],
+  });
+
+  React.useEffect(() => {
+    axios.get("/api/admin/overview").then((res) => {
+      setData(res.data);
+    }
+    ).catch((err) => {
+      console.error(err);
+    }
+    );
+
+  }, []);
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
       <div className="hidden grid-cols-2 gap-4 md:grid md:gap-8">
@@ -15,8 +36,7 @@ const Page: NextPageWithLayout = () => {
             <UsersIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2350</div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">+180.1% from last month</p>
+            <div className="text-2xl font-bold">{data.user}</div>
           </CardContent>
         </Card>
         <Card>
@@ -25,8 +45,7 @@ const Page: NextPageWithLayout = () => {
             <BuildingIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">+180.1% from last month</p>
+            <div className="text-2xl font-bold">{data.organization}</div>
           </CardContent>
         </Card>
         <Card>
@@ -35,8 +54,7 @@ const Page: NextPageWithLayout = () => {
             <MailIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">+180.1% from last month</p>
+            <div className="text-2xl font-bold">{data.request}</div>
           </CardContent>
         </Card>
         <Card>
@@ -45,8 +63,7 @@ const Page: NextPageWithLayout = () => {
             <ListIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">+180.1% from last month</p>
+            <div className="text-2xl font-bold">{data.category}</div>
           </CardContent>
         </Card>
       </div>

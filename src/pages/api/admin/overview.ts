@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma"
+import { AdminOverviewProps } from "@/types/responseTypes";
 
 type FormData = {
   name: string;
@@ -9,7 +10,7 @@ type FormData = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>,
+  res: NextApiResponse<AdminOverviewProps | string>,
 ) {
   if (req.method == "GET") {
     const category = await prisma.category.count();
