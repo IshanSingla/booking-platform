@@ -1,22 +1,20 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "@prisma/client";
 
-type Data = {
-  name: string;
+type FormData = {
+   name: string;
+   description: string;
+   image: string;
 };
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>,
-) {
-  if (req.method=="GET"){
-    res.status(200).json({ name: "John Doe" });
-  }
-  else if (req.method=="POST"){
-    res.status(200).json({ name: "John Doe" });
-  }
-  else{
-    // res.status(404).json({
-    //     message: "Not Found"
-    // });
-  }
-}
+export const createCategory = async (formData: FormData) => {
+   try {
+      const prisma = new PrismaClient();
+      const createdItem = await prisma.category.create({ data: formData });
+      console.log("Category created:", createdItem);
+      await prisma.$disconnect(); // Close Prisma client connection
+      return createdItem;
+   } catch (error) {
+      console.log("ERROR:", error);
+      throw error; // Rethrow the error for the caller to handle
+   }
+};

@@ -13,12 +13,12 @@ model User {
   id          String    @id @default(uuid()) @map("_id") @db.ObjectId
   name        String?
   phoneNumber String    @unique(map: "phoneNumber_1")
-  role        String? // Assuming the role can be null or one of the specified values
+  role        String?
   loginIp     String
   loginDevice String
   createdAt   DateTime? @default(now()) @db.Date
   updatedAt   DateTime? @updatedAt @db.Date
-  Request     Request[]
+  requests    Request[] 
 }
 
 // Otp table for phone number OTPs
@@ -56,15 +56,15 @@ model Organization {
   website     String?
   createdAt   DateTime? @default(now()) @db.Date
   updatedAt   DateTime? @updatedAt @db.Date
-  Request     Request[]
+  requests    Request[] 
 }
 
-//Requests table
+// Requests table
 model Request {
   id             String       @id @default(uuid()) @map("_id") @db.ObjectId
   user           User         @relation(fields: [userId], references: [id])
   userId         String
-  organization   Organization @relation(fields: [userId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId String
   status         String?
 }
