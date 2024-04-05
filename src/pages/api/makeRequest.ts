@@ -6,8 +6,8 @@ export default async function handler(
   res: NextApiResponse<any>,
 ) {
   if (req.method == "POST") {
-    const formData: FormData = req.body;
-    const createdItem = await prisma.request.create({ data: formData });
+    // const formData: FormData = req.body;
+    // const createdItem = await prisma.request.create({ data: formData });
     res.status(201).json("Request created");
   }
   else {

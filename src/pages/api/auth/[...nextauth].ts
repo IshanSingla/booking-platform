@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth, { AuthOptions, Session } from "next-auth";
 import { NextApiRequest, NextApiResponse } from "next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import HeaderChecker from "@/lib/headerChecker";
@@ -118,7 +118,10 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                 }
                 return token;
             },
-            async session({ session, token, user }) {
+            async session({ session, token }: {
+                session: Session,
+                token: any;
+            }) {
                 try {
                     if (session) {
                         const user = await prisma.user.findUnique({
