@@ -1,9 +1,10 @@
 import { CardContent, Card } from "@/components/ui/card"
 import { BookIcon, FilmIcon, GamepadIcon, GlobeIcon, MenuIcon, MusicIcon } from "lucide-react"
-import Link from "next/link"
 import { NextPageWithLayout } from "@/types/global"
 import GlobalLayout from "@/layout/global"
 import { useRouter } from "next/router"
+import { prisma } from "@/lib/prisma"
+import { Category } from "@/types/responseTypes"
 
 const list = [
   {
@@ -57,7 +58,9 @@ const list = [
 
 ]
 
-const Page: NextPageWithLayout = () => {
+const Page: any = (props: {
+  data: Category[]
+}) => {
   const router = useRouter()
   return (
     <main className="flex items-center justify-center min-h-[87vh] p-4 ">
@@ -71,13 +74,13 @@ const Page: NextPageWithLayout = () => {
         <Card className="bg-white">
           <CardContent className="p-0">
             <div className="grid gap-3 md:gap-5 sm:grid-cols-2 lg:grid-cols-3 p-4">
-              {list.map((service, index) => (
+              {props.data.map((service, index) => (
                 <Card onClick={
-                  () => router.push(`/app/org?category=${service.title.toLowerCase()}`)
+                  () => router.push(`/org?category=${service.id}`)
                 } key={index} className="flex items-center justify-center p-4 rounded-lg bg-gray-100/40 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
                   <div className="space-y-2 text-center">
-                    <service.icon className="w-12 h-12 rounded-full aspect-square object-cover fill-current" />
-                    <div className="font-semibold">{service.title}</div>
+                    <BookIcon className="w-12 h-12  aspect-square object-cover " />
+                    <div className="font-semibold">{service.name}</div>
                   </div>
                 </Card>
               ))}
@@ -91,4 +94,30 @@ const Page: NextPageWithLayout = () => {
 
 Page.getLayout = GlobalLayout;
 
+
+
 export default Page;
+
+export async function getStaticProps() {
+  const data = await prisma.category.findMany(
+    {
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        image: true
+      }
+    }
+  );
+  console.log("fetching data...")
+
+  return {
+    props: {
+      data
+    },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 600, // In seconds
+  }
+}

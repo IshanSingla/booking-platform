@@ -2,6 +2,7 @@ import { GraduationCapIcon } from "lucide-react";
 import { NextPageWithLayout } from "@/types/global"
 import GlobalLayout from "@/layout/global";
 import Image from "next/image";
+import { prisma } from "@/lib/prisma";
 
 const Page: NextPageWithLayout = () => {
     return (
@@ -71,3 +72,38 @@ const Page: NextPageWithLayout = () => {
 Page.getLayout = GlobalLayout;
 
 export default Page;
+
+export async function getStaticProps() {
+    const data = await prisma.organization.findMany();
+    console.log("fetching data...")
+
+    return {
+        props: {
+            data
+        },
+        // Next.js will attempt to re-generate the page:
+        // - When a request comes in
+        // - At most once every 10 seconds
+        revalidate: 600, // In seconds
+    }
+}
+
+export async function getStaticPaths() {
+    const data = await prisma.organization.findMany({
+        select: {
+            id: true
+        }
+    });
+
+    // Get the paths we want to pre-render based on posts
+    const paths = data.map((post: {
+        id: string;
+    }) => ({
+        params: { id: post.id },
+    }))
+
+    // We'll pre-render only these paths at build time.
+    // { fallback: 'blocking' } will server-render pages
+    // on-demand if the path doesn't exist.
+    return { paths, fallback: 'blocking' }
+}

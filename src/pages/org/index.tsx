@@ -32,7 +32,7 @@ const Page: NextPageWithLayout = () => {
                 </div>
             </div>
             <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10 bg-white">
-                <Card className="flex flex-col gap-2" onClick={() => router.push('/app/org/123')}>
+                <Card className="flex flex-col gap-2" onClick={() => router.push('/org/123')}>
                     <CardHeader className="pb-0">
                         <CardTitle className="text-2xl font-bold leading-none">LOGO</CardTitle>
                         <CardDescription className="text-gray-500">
