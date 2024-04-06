@@ -2,12 +2,12 @@ import { CardContent, Card } from "@/components/ui/card"
 import { BookIcon } from "lucide-react"
 import { useRouter } from "next/router"
 import { prisma } from "@/lib/prisma"
-import { Category } from "@/types/responseTypes"
 import GlobalUserRequiredLayout from "@/layout/globalUserRequired"
+import { CategorySchema } from "@/types/schema"
 
 
 const Page: any = (props: {
-  data: Category[]
+  data: CategorySchema[]
 }) => {
   const router = useRouter()
   return (

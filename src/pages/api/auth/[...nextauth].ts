@@ -148,7 +148,17 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                         where: { id: token.id },
                     });
                     if (user) {
-                        return { ...session, user: { ...user } };
+                        const org = await prisma.organization.findFirst({
+                            where: {
+                                userId: user.id
+
+
+                            },
+                        });
+
+                        return { ...session, user: { ...user }, org: org };
+                    } else {
+                        throw new Error("User not found");
                     }
                 }
                 return session;

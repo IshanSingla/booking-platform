@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout"
-import { NextPageWithLayout } from "@/types/global"
+import { NextPageWithLayout } from "@/types/props"
 import { BuildingIcon, FileEditIcon, ListIcon, MailIcon, UsersIcon } from "lucide-react"
 
 const Page: NextPageWithLayout = () => {

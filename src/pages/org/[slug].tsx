@@ -1,5 +1,5 @@
 import { GraduationCapIcon } from "lucide-react";
-import { NextPageWithLayout } from "@/types/global"
+import { NextPageWithLayout } from "@/types/props"
 import GlobalLayout from "@/layout/global";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";

@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
 import { useRouter } from "next/router"
-import { NextPageWithLayout } from "@/types/global"
+import { NextPageWithLayout } from "@/types/props"
 import GlobalUserRequiredLayout from "@/layout/globalUserRequired"
 
 const Page: NextPageWithLayout = () => {

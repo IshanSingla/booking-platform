@@ -1,5 +1,5 @@
 import GlobalLayout from "@/layout/global";
-import { NextPageWithLayout } from "@/types/global"
+import { NextPageWithLayout } from "@/types/props"
 import Link from "next/link"
 
 const Page: NextPageWithLayout = () => {

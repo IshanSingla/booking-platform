@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import GlobalLayout from "@/layout/global";
-import { NextPageWithLayout } from "@/types/global";
+import { NextPageWithLayout } from "@/types/props";
 import { CodeIcon, ContainerIcon, GitCommitIcon, MountainIcon, RocketIcon } from "lucide-react";
 import Image from "next/image";
 

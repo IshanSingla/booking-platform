@@ -7,10 +7,3 @@ export interface AdminOverviewProps {
     user: number;
     admins: any;
 }
-
-export interface Category {
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-}

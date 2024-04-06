@@ -18,6 +18,7 @@ model User {
   loginDevice String
   createdAt   DateTime? @default(now()) @db.Date
   updatedAt   DateTime? @updatedAt @db.Date
+  organizations Organization[]
 }
 
 // Otp table for phone number OTPs
@@ -43,6 +44,8 @@ model Category {
 // Organization table
 model Organization {
   id          String    @id @default(uuid()) @map("_id")
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      String?
   name        String
   displayName String?
   address     String?
@@ -55,7 +58,7 @@ model Organization {
   website     String?
   createdAt   DateTime? @default(now()) @db.Date
   updatedAt   DateTime? @updatedAt @db.Date
-  requests    Request[] 
+  requests    Request[]
 }
 
 // Requests table

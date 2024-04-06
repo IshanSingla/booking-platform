@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
-import { NextPageWithLayout } from "@/types/global";
+import { NextPageWithLayout } from "@/types/props";
 import { FormEvent } from "react";
 import axios from "axios";
 

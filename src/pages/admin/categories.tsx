@@ -8,7 +8,7 @@ import {
    Table,
 } from "@/components/ui/table";
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
-import { NextPageWithLayout } from "@/types/global";
+import { NextPageWithLayout } from "@/types/props";
 import {
    BuildingIcon,
    FileEditIcon,
