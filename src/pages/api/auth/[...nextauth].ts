@@ -32,17 +32,26 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                 authorize: async (credentials) => {
                     const phoneNumber = credentials?.phoneNumber ?? "";
                     const otp = credentials?.otp ?? "";
+
+                    console.log(phoneNumber, otp);
                     // const { phoneNumber = "", otp = "" } = credentials;
                     let err = "";
                     if (
                         otp !== "" &&
                         phoneNumber !== "" &&
                         phoneNumber.length === 10 &&
-                        !isNaN(Number(phoneNumber))
+                        !isNaN(Number(phoneNumber)) &&
+                        !isNaN(Number(otp))
                     ) {
+                        console.log("OTP");
                         const otpData = await prisma.phoneOtp.findFirst({
-                            where: { phoneNumber: phoneNumber },
-                        })
+                            where: {
+                                phoneNumber: phoneNumber,
+                                expTime: {
+                                    gt: new Date(), // Check if expTime is greater than current time
+                                },
+                            },
+                        });
                         if (otp === "123456" || otpData?.otp === otp) {
                             const device = HeaderChecker(
                                 req.headers["user-agent"] ?? req.headers["User-Agent"]
@@ -77,22 +86,38 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                         !isNaN(Number(phoneNumber))
                     ) {
                         const otp = Math.floor(100000 + Math.random() * 900000);
-                        try {
-                            // save otp in database
+                        // save otp in database
+                        const existingPhoneOtp = await prisma.phoneOtp.findFirst({
+                            where: {
+                                phoneNumber: phoneNumber,
+                            },
+                        });
+
+                        if (existingPhoneOtp) {
+                            // Update the existing document
+                            await prisma.phoneOtp.update({
+                                where: {
+                                    id: existingPhoneOtp.id,
+                                },
+                                data: {
+                                    otp: otp.toString(),
+                                    expTime: new Date(Date.now() + (60000 * 15)), // 15 minutes
+                                },
+                            });
+                        } else {
+                            // Create a new document
                             await prisma.phoneOtp.create({
                                 data: {
                                     phoneNumber: phoneNumber,
                                     otp: otp.toString(),
-                                    expTime: new Date(Date.now() + (60000 * 15)), // 15 minute
+                                    expTime: new Date(Date.now() + (60000 * 15)), // 15 minutes
                                 },
                             });
-
-                            // send otp to phone number
-                            // await sendOtp(phoneNumber, otp);
-
-                        } catch (error: any) {
-                            throw new Error(error.message);
                         }
+
+                        // send otp to phone number
+                        // await sendOtp(phoneNumber, otp);
+
                         throw new Error("Otp Send Sucessfull");
                     }
                     else {
@@ -104,17 +129,13 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
         ],
         callbacks: {
             async jwt({ token, user, account, profile }) {
-                try {
-                    if (user) {
-                        let data = await prisma.user.findUnique({
-                            where: { id: user.id },
-                        });
-                        if (data) {
-                            token = { ...token, id: data.id };
-                        }
+                if (user) {
+                    let data = await prisma.user.findUnique({
+                        where: { id: user.id },
+                    });
+                    if (data) {
+                        token = { ...token, id: data.id };
                     }
-                } catch (e) {
-                    console.error(e);
                 }
                 return token;
             },
@@ -122,17 +143,13 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                 session: Session,
                 token: any;
             }) {
-                try {
-                    if (session) {
-                        const user = await prisma.user.findUnique({
-                            where: { id: token.id },
-                        });
-                        if (user) {
-                            return { ...session, user: { ...user } };
-                        }
+                if (session) {
+                    const user = await prisma.user.findUnique({
+                        where: { id: token.id },
+                    });
+                    if (user) {
+                        return { ...session, user: { ...user } };
                     }
-                } catch (err) {
-                    console.error(err);
                 }
                 return session;
             },

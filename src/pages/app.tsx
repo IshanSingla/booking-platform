@@ -109,7 +109,6 @@ export async function getStaticProps() {
       }
     }
   );
-  console.log("fetching data...")
 
   return {
     props: {

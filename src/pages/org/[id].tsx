@@ -75,7 +75,6 @@ export default Page;
 
 export async function getStaticProps() {
     const data = await prisma.organization.findMany();
-    console.log("fetching data...")
 
     return {
         props: {

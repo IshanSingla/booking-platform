@@ -45,7 +45,7 @@ export default function Login() {
         })
             .then((res) => {
                 if (res?.error) {
-                    // alert(res.error);
+                    alert(res.error);
                     setOtpDisplay(true);
                 } else {
                     router.push("/app");
