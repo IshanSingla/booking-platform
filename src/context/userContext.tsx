@@ -1,25 +1,13 @@
 import { Loading } from '@/components/Global'
+import Register from '@/components/app/register'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
 import React from 'react'
 
 export default function UserContext(props: {
     children: React.ReactNode
 }) {
-    const { data: session, status } = useSession()
-    const router = useRouter()
-    React.useEffect(() => {
-        if (status === 'authenticated') {
-            if (!session.user.role) {
-                router.push('/register')
-
-            }
-
-        }
-    }
-        , [status === 'authenticated'])
+    const { status } = useSession()
     if (status === 'loading') return <Loading />
-
     return props.children
 }
 
@@ -27,7 +15,7 @@ export default function UserContext(props: {
 export function UserRequireContext(props: {
     children: React.ReactNode
 }) {
-    const { data: Session, status } = useSession({
+    const { data: session, status } = useSession({
         required: true,
         onUnauthenticated() {
             window.location.href = '/'
@@ -35,7 +23,15 @@ export function UserRequireContext(props: {
     })
     if (status === 'loading') return <Loading />
 
-    if (status === 'authenticated') return props.children
+    if (status === 'authenticated') {
+        if (!session?.user?.role) {
+            return <Register />
+        } else if (session?.user?.role === 'student') {
+            return props.children
+        } else if (session?.user?.role === 'organization') {
+            return props.children
+        }
+    }
 
 
     return <></>

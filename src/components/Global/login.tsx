@@ -48,6 +48,7 @@ export default function Login() {
                     alert(res.error);
                     setOtpDisplay(true);
                 } else {
+                    alert("Please complete your registration");
                     router.push("/app");
                 }
             })
@@ -130,13 +131,12 @@ export default function Login() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white">
                 <DropdownMenuLabel
-                    className="hover:bg-slate-400"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        router.push("/profile");
-                    }}
                 >
-                    Profile
+                    Name: {Sesssion?.user?.name ?? "-"}
+                </DropdownMenuLabel>
+                <DropdownMenuLabel
+                >
+                    Phone Number: {Sesssion?.user?.phoneNumber ?? "-"}
                 </DropdownMenuLabel>
                 <DropdownMenuLabel
                     className="hover:bg-slate-400"

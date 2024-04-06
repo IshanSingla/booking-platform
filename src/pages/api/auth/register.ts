@@ -7,16 +7,17 @@ async function handler(
     res: NextApiResponse<any>,
 ) {
     if (req.method == "PUT") {
-        const { asStudent, asOrganization }: any = req.query
-        if (asStudent) {
+        const { isStudent, isOrganization }: any = req.query
+        if (isStudent) {
             await prisma.user.update({
                 where: { id: req?.user?.id },
                 data: {
+                    name: req.body.name,
                     role: "student",
                 },
             });
             res.status(200).json("Success");
-        } else if (asOrganization) {
+        } else if (isOrganization) {
             await prisma.user.update({
                 where: { id: req?.user?.id },
                 data: {

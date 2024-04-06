@@ -1,62 +1,10 @@
 import { CardContent, Card } from "@/components/ui/card"
-import { BookIcon, FilmIcon, GamepadIcon, GlobeIcon, MenuIcon, MusicIcon } from "lucide-react"
-import { NextPageWithLayout } from "@/types/global"
-import GlobalLayout from "@/layout/global"
+import { BookIcon } from "lucide-react"
 import { useRouter } from "next/router"
 import { prisma } from "@/lib/prisma"
 import { Category } from "@/types/responseTypes"
+import GlobalUserRequiredLayout from "@/layout/globalUserRequired"
 
-const list = [
-  {
-    title: "Music",
-    icon: MusicIcon,
-  },
-  {
-    title: "Gaming",
-    icon: GamepadIcon,
-  },
-  {
-    title: "Reading",
-    icon: BookIcon,
-  },
-  {
-    title: "Movies",
-    icon: FilmIcon,
-  },
-  {
-    title: "Travel",
-    icon: GlobeIcon,
-  },
-  {
-    title: "Food",
-    icon: MenuIcon,
-  },
-  {
-    title: "Music",
-    icon: MusicIcon,
-  },
-  {
-    title: "Gaming",
-    icon: GamepadIcon,
-  },
-  {
-    title: "Reading",
-    icon: BookIcon,
-  },
-  {
-    title: "Movies",
-    icon: FilmIcon,
-  },
-  {
-    title: "Travel",
-    icon: GlobeIcon,
-  },
-  {
-    title: "Food",
-    icon: MenuIcon,
-  },
-
-]
 
 const Page: any = (props: {
   data: Category[]
@@ -74,7 +22,7 @@ const Page: any = (props: {
         <Card className="bg-white">
           <CardContent className="p-0">
             <div className="grid gap-3 md:gap-5 sm:grid-cols-2 lg:grid-cols-3 p-4">
-              {props.data.map((service, index) => (
+              {props?.data?.map((service, index) => (
                 <Card onClick={
                   () => router.push(`/org?category=${service.id}`)
                 } key={index} className="flex items-center justify-center p-4 rounded-lg bg-gray-100/40 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -92,7 +40,7 @@ const Page: any = (props: {
   )
 }
 
-Page.getLayout = GlobalLayout;
+Page.getLayout = GlobalUserRequiredLayout;
 
 
 

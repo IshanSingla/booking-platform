@@ -9,12 +9,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <SessionProvider session={pageProps.session}>
-      <UserContext>
         <NextThemesProvider attribute="class" forcedTheme="light">
           {getLayout(<Component {...pageProps} />)}
         </NextThemesProvider>
-      </UserContext>
     </SessionProvider>
-
   );
 }

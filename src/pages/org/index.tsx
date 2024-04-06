@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
 import { useRouter } from "next/router"
 import { NextPageWithLayout } from "@/types/global"
-import GlobalLayout from "@/layout/global"
+import GlobalUserRequiredLayout from "@/layout/globalUserRequired"
 
 const Page: NextPageWithLayout = () => {
     const router = useRouter()
@@ -67,6 +67,6 @@ const Page: NextPageWithLayout = () => {
     )
 }
 
-Page.getLayout = GlobalLayout;
+Page.getLayout = GlobalUserRequiredLayout;
 
 export default Page;
