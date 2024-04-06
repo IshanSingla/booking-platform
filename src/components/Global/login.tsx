@@ -56,10 +56,13 @@ export default function Login() {
     };
     if (status === "unauthenticated") {
         return (
-            <Dialog
+            <Dialog open={router.query.error === "unauthenticated"}
                 onOpenChange={(open) => {
                     if (!open) {
                         setOtpDisplay(false);
+                        if (router.query.error === "unauthenticated") {
+                            router.push("/");
+                        }
                     }
                 }}
             >

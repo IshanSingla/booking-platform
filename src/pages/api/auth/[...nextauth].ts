@@ -32,10 +32,6 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                 authorize: async (credentials) => {
                     const phoneNumber = credentials?.phoneNumber ?? "";
                     const otp = credentials?.otp ?? "";
-
-                    console.log(phoneNumber, otp);
-                    // const { phoneNumber = "", otp = "" } = credentials;
-                    let err = "";
                     if (
                         otp !== "" &&
                         phoneNumber !== "" &&
@@ -43,7 +39,6 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                         !isNaN(Number(phoneNumber)) &&
                         !isNaN(Number(otp))
                     ) {
-                        console.log("OTP");
                         const otpData = await prisma.phoneOtp.findFirst({
                             where: {
                                 phoneNumber: phoneNumber,
