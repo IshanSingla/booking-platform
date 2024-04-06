@@ -80,29 +80,26 @@ export async function getStaticProps() {
         props: {
             data
         },
-        // Next.js will attempt to re-generate the page:
-        // - When a request comes in
-        // - At most once every 10 seconds
-        revalidate: 600, // In seconds
+        revalidate: 600,
     }
 }
 
 export async function getStaticPaths() {
-    const data = await prisma.organization.findMany({
-        select: {
-            id: true
-        }
-    });
-
-    // Get the paths we want to pre-render based on posts
-    const paths = data.map((post: {
-        id: string;
-    }) => ({
-        params: { id: post.id },
-    }))
-
-    // We'll pre-render only these paths at build time.
-    // { fallback: 'blocking' } will server-render pages
-    // on-demand if the path doesn't exist.
-    return { paths, fallback: 'blocking' }
+    // const data = await prisma.organization.findMany({
+    //     select: {
+    //         id: true
+    //     }
+    // });
+    // const paths = data.map((post: {
+    //     id: string;
+    // }) => ({
+    //     params: { slug: post.id },
+    // }))
+    return {
+        paths: [{
+            params: {
+                slug: "123"
+            }
+        }], fallback: 'blocking'
+    }
 }

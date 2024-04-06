@@ -1,4 +1,4 @@
-import UserContext from "@/context/userContext";
+
 import "@/styles/globals.css";
 import { AppPropsWithLayout } from "@/types/global";
 import { SessionProvider } from "next-auth/react";

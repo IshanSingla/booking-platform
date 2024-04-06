@@ -25,18 +25,18 @@ async function handler(
                 },
             });
             const data = req.body;
-            await prisma.organization.create({
-                data: {
-                    name: data.name,
-                    description: data.description,
-                    image: data.image,
-                    user: {
-                        connect: {
-                            id: req?.user?.id,
-                        },
-                    },
-                },
-            });
+            // await prisma.organization.create({
+            //     data: {
+            //         name: data.name,
+            //         description: data.description,
+            //         image: data.image,
+            //         user: {
+            //             connect: {
+            //                 id: req?.user?.id,
+            //             },
+            //         },
+            //     },
+            // });
             res.status(200).json("Success");
         }
     }

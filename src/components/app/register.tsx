@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import axios from "axios";
 import { BookIcon, GlobeIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
