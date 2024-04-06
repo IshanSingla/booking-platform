@@ -55,17 +55,8 @@ export default function Login() {
             .catch((error) => { });
     };
     if (status === "unauthenticated") {
-        return (
-            <Dialog open={router.query.error === "unauthenticated"}
-                onOpenChange={(open) => {
-                    if (!open) {
-                        setOtpDisplay(false);
-                        if (router.query.error === "unauthenticated") {
-                            router.push("/");
-                        }
-                    }
-                }}
-            >
+        var result = (
+            <>
                 <DialogTrigger>
                     <Button variant="outline">Login</Button>
                 </DialogTrigger>
@@ -118,6 +109,32 @@ export default function Login() {
                         </DialogFooter>
                     </form>
                 </DialogContent>
+            </>
+        );
+        if (!!router.query?.login && router.query.login === "true") {
+            return (
+                <Dialog open={!!router.query?.login && router.query.login === "true"}
+                    onOpenChange={(open) => {
+                        if (!open) {
+                            setOtpDisplay(false);
+                            if (!!router.query?.login && router.query.login === "true") {
+                                router.push("/");
+                            }
+                        }
+                    }}>
+                    {result}
+                </Dialog>
+            );
+
+        }
+        return (
+            <Dialog
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setOtpDisplay(false);
+                    }
+                }}>
+                {result}
             </Dialog>
         );
     }

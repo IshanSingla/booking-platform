@@ -9,7 +9,7 @@ export function UserRequireContext(props: {
     const { data: session, status } = useSession({
         required: true,
         onUnauthenticated() {
-            window.location.href = '/?error=unauthenticated'
+            window.location.href = '/?login=true'
         }
     })
     if (status === 'loading') return <Loading />
