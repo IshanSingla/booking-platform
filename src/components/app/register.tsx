@@ -7,6 +7,8 @@ import { BookIcon, GlobeIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
+import { useToast } from "../ui/use-toast";
+import { ToastAction } from "../ui/toast";
 
 
 export default function Register() {
@@ -14,7 +16,7 @@ export default function Register() {
     const [type, setType] = React.useState<"student" | "orginization" | null>(
         null
     );
-    const router = useRouter()
+    const { toast } = useToast()
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,12 +27,30 @@ export default function Register() {
                     name: target?.name?.value,
                 })
                 .then((res) => {
-                    alert("Completed Registration");
+                    toast({
+                        title: "Completed Registration",
+                        description: "You can now access the app",
+                        className: "bg-green-300",
+                    });
                     update();
 
                 })
                 .catch((err) => {
-                    alert(err.message);
+
+                    toast({
+                        title: "Error",
+                        description: err.message,
+                        duration: 5000,
+                        action: <ToastAction onClick={
+                            () => {
+                                toast({
+                                    title: "Api Response",
+                                    description: JSON.stringify(err.response.data),
+                                });
+                            }
+
+                        } altText="Goto schedule to undo">Check Response</ToastAction>,
+                    });
                 });
         } else if (type === "orginization") {
             axios
@@ -38,11 +58,27 @@ export default function Register() {
                     name: target?.name?.value,
                 })
                 .then((res) => {
-                    alert("Completed Registration");
-                    router.push("/myOrg");
+                    toast({
+                        title: "Completed Registration",
+                        description: "Wait for approval from admin",
+                    });
+                    update();
                 })
                 .catch((err) => {
-                    alert(err.message);
+                    toast({
+                        title: "Error",
+                        description: err.message,
+                        duration: 5000,
+                        action: <ToastAction onClick={
+                            () => {
+                                toast({
+                                    title: "Api Response",
+                                    description: JSON.stringify(err.response.data),
+                                });
+                            }
+
+                        } altText="Goto schedule to undo">Check Response</ToastAction>,
+                    });
                 });
         }
     };

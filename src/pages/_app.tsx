@@ -1,4 +1,5 @@
 
+import { Toaster } from "@/components/ui/toaster";
 import "@/styles/globals.css";
 import { AppPropsWithLayout } from "@/types/props";
 import { SessionProvider } from "next-auth/react";
@@ -11,6 +12,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     <SessionProvider session={pageProps.session}>
       <NextThemesProvider attribute="class" forcedTheme="light">
         {getLayout(<Component {...pageProps} />)}
+        <Toaster />
       </NextThemesProvider>
     </SessionProvider>
   );

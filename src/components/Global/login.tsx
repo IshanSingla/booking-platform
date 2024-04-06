@@ -28,11 +28,13 @@ import {
 } from "@/components/ui/input-otp";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useRouter } from "next/router";
+import { useToast } from "../ui/use-toast";
 
 export default function Login() {
     const { data: Sesssion, status } = useSession();
     const [otpDisplay, setOtpDisplay] = React.useState(false);
     const router = useRouter();
+    const { toast } = useToast();
     const handleLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
@@ -45,10 +47,17 @@ export default function Login() {
         })
             .then((res) => {
                 if (res?.error) {
-                    alert(res.error);
+                    toast({
+                        title: "Error",
+                        description: res.error,
+                        className: "bg-red-300",
+                    });
                     setOtpDisplay(true);
                 } else {
-                    alert("Please complete your registration");
+                    toast({
+                        title: "Login Successful",
+                        className: "bg-green-300",
+                    });
                     router.push("/app");
                 }
             })

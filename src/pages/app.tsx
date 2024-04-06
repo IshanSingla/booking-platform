@@ -25,11 +25,9 @@ const Page: any = (props: {
               {props?.data?.map((service, index) => (
                 <Card onClick={
                   () => router.push(`/org?category=${service.id}`)
-                } key={index} className="flex items-center justify-center p-4 rounded-lg bg-gray-100/40 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <div className="space-y-2 text-center">
-                    <BookIcon className="w-12 h-12  aspect-square object-cover " />
-                    <div className="font-semibold">{service.name}</div>
-                  </div>
+                } key={index} className="flex flex-col gap-2 items-center justify-center p-4 rounded-lg bg-gray-100/40 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <BookIcon className="w-12 h-12  aspect-square object-cover " />
+                  <div className="font-semibold w-full text-center">{service.name}</div>
                 </Card>
               ))}
             </div>
