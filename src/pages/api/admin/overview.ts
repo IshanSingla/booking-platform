@@ -19,7 +19,7 @@ export default async function handler(
     const user = await prisma.user.count();
     const admins = await prisma.user.findMany({
       where: {
-        role: "ADMIN",
+        role: "admin",
       },
     });
     const data = { category, organization, request, user, admins };
