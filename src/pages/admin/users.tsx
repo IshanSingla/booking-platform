@@ -1,3 +1,4 @@
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -29,6 +30,7 @@ import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 import axios from "axios";
 import { Delete, Trash2 } from "lucide-react";
 import React from "react";
+
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminUserProps>([]);
@@ -152,6 +154,7 @@ const Page: NextPageWithLayout = () => {
               <TableHead className="w-[100px] text-center">S.No</TableHead>
               <TableHead className="text-center">Name</TableHead>
               <TableHead className="text-center">PhoneNumber</TableHead>
+              <TableHead className="text-center">Email</TableHead>
               <TableHead className="text-center">Role</TableHead>
               <TableHead className="text-center">Last Login Details</TableHead>
               <TableHead className="text-center">
@@ -167,6 +170,9 @@ const Page: NextPageWithLayout = () => {
                 <TableCell className="font-medium">{admin.name}</TableCell>
                 <TableCell className="font-medium">
                   {admin.phoneNumber}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {admin.email}
                 </TableCell>
                 <TableCell>{admin.role}</TableCell>
                 <TableCell>
@@ -200,6 +206,7 @@ const Page: NextPageWithLayout = () => {
                     }
                   >
                     {admin.disabled ? "Enable" : "Disable"}
+
                   </Button>
                   <AlertDialog>
                     <AlertDialogTrigger>

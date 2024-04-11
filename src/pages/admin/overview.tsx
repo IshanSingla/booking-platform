@@ -24,24 +24,9 @@ import {
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
+import { DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminOverviewProps>({
@@ -100,7 +85,7 @@ const Page: NextPageWithLayout = () => {
 
   if (loading) return <Skeleton className="w-full h-full rounded-full" />;
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 h-full w-full">
+    <main className="flex flex-1 flex-col gap-3 p-4 md:p-10 h-full w-full">
       <div className=" grid-cols-2 gap-4 md:grid md:gap-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
@@ -145,7 +130,6 @@ const Page: NextPageWithLayout = () => {
           </CardContent>
         </Card>
       </div>
-
       <div className="w-full  text-center flex flex-row gap-3 mt-3">
         <Input placeholder="Search Admin User" className="w-full" />
         <Dialog>
@@ -171,7 +155,6 @@ const Page: NextPageWithLayout = () => {
           </DialogContent>
         </Dialog>
       </div>
-
       <div className="rounded-lg border">
         <Table className="border text-center">
           <TableHeader>
