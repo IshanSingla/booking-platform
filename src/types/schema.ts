@@ -3,6 +3,8 @@ export type UserSchema = {
     name?: string | null;
     phoneNumber: string;
     role?: 'SUPERADMIN' | 'ADMIN' | 'STUDENT' | 'ORGANIZATION'
+    email?: string | null;
+    disabled: boolean;
     loginIp: string;
     loginDevice: string;
     createdAt?: Date | string | null;

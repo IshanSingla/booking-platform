@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout"
+import { cn } from "@/lib/cn"
 import { NextPageWithLayout } from "@/types/props"
 import { AdminUserProps } from "@/types/responseTypes"
 import axios from "axios"
@@ -42,6 +43,7 @@ const Page: NextPageWithLayout = () => {
               <TableHead className="w-[100px] text-center">SNo</TableHead>
               <TableHead className="text-center">Name</TableHead>
               <TableHead className="text-center">PhoneNumber</TableHead>
+              <TableHead className="text-center">Email</TableHead>
               <TableHead className="text-center">Role</TableHead>
               <TableHead className="text-center">Last Login Details</TableHead>
               <TableHead className="text-center">
@@ -58,6 +60,9 @@ const Page: NextPageWithLayout = () => {
                 <TableCell className="font-medium">
                   {admin.phoneNumber}
                 </TableCell>
+                <TableCell className="font-medium">
+                  {admin.email}
+                </TableCell>
                 <TableCell>{admin.role}</TableCell>
                 <TableCell>
                   <div className="">
@@ -71,8 +76,13 @@ const Page: NextPageWithLayout = () => {
                     <div className="text-xs">{new Date(admin?.updatedAt)?.toLocaleDateString() ?? ""} {new Date(admin?.updatedAt)?.toLocaleTimeString() ?? ""}</div>
                   </div>
                 </TableCell>
-                <TableCell className="">
-                  <Button size="icon" variant="ghost">
+                <TableCell className={cn("flex gap-3 justify-center items-center")}>
+                  <Button variant="outline" className={admin.disabled ?
+                    "bg-green-500 text-white" : "bg-red-500 text-white"
+                  }>
+                    {admin.disabled ? "Enable" : "Disable"}
+                  </Button>
+                  <Button size="icon" variant="outline">
                     <FileEditIcon className="w-4 h-4" />
                     <span className="sr-only">Edit</span>
                   </Button>
