@@ -4,12 +4,13 @@ import { useRouter } from "next/router"
 import { prisma } from "@/lib/prisma"
 import GlobalUserRequiredLayout from "@/layout/globalUserRequired"
 import { CategorySchema } from "@/types/schema"
+import { useContext } from "react"
+import { categoryContext } from "@/context/categoryContext"
 
 
-const Page: any = (props: {
-  data: CategorySchema[]
-}) => {
+const Page: any = () => {
   const router = useRouter()
+  const { categories } = useContext(categoryContext)
   return (
     <main className="flex items-center justify-center min-h-[87vh] p-4 ">
       <div className="grid gap-4 w-full max-w-2xl">
@@ -22,7 +23,7 @@ const Page: any = (props: {
         <Card className="bg-white">
           <CardContent className="p-0">
             <div className="grid gap-3 md:gap-5 sm:grid-cols-2 lg:grid-cols-3 p-4">
-              {props?.data?.map((service, index) => (
+              {categories.map((service, index) => (
                 <Card onClick={
                   () => router.push(`/org?category=${service.id}`)
                 } key={index} className="flex flex-col gap-2 items-center justify-center p-4 rounded-lg bg-gray-100/40 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -43,26 +44,3 @@ Page.getLayout = GlobalUserRequiredLayout;
 
 
 export default Page;
-
-export async function getStaticProps() {
-  const data = await prisma.category.findMany(
-    {
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        image: true
-      }
-    }
-  );
-
-  return {
-    props: {
-      data
-    },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 600, // In seconds
-  }
-}

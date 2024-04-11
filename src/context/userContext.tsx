@@ -1,7 +1,8 @@
 import { Loading } from '@/components/Global'
 import Register from '@/components/app/register'
 import { useSession } from 'next-auth/react'
-import React from 'react'
+import React, { useContext } from 'react'
+import { categoryContext } from './categoryContext'
 
 export function UserRequireContext(props: {
     children: React.ReactNode
@@ -12,13 +13,14 @@ export function UserRequireContext(props: {
             window.location.href = '/?login=true'
         }
     })
+    const { loading } = useContext(categoryContext)
     React.useEffect(() => {
         if (status === 'authenticated' && (session?.user?.role === 'ADMIN' || session?.user?.role === 'SUPERADMIN')) {
             window.location.href = '/admin/overview'
         }
     }
         , [status, session])
-    if (status === 'loading') return <Loading />
+    if (status === 'loading' || loading) return <Loading />
 
     if (status === 'authenticated') {
         if (!session?.user?.role) {
