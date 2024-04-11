@@ -27,19 +27,27 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
 import { NextPageWithLayout } from "@/types/props";
 import { AdminCategoryProps } from "@/types/responseTypes";
 import axios from "axios";
-import { DeleteIcon, FileEditIcon } from "lucide-react";
+import { BookIcon, FileEditIcon, Trash2 } from "lucide-react";
 import React from "react";
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminCategoryProps>([]);
   const [loading, setLoading] = React.useState(true);
+  const { toast } = useToast();
 
   React.useEffect(() => {
     setLoading(true);
+    return loadData();
+  }, []);
+
+  const loadData = () => {
     axios
       .get("/api/admin/categories")
       .then((res) => {
@@ -50,40 +58,83 @@ const Page: NextPageWithLayout = () => {
         setLoading(false);
         console.error(err);
       });
-  }, []);
+  };
 
-  const handleUpdate = async (id: string, e: any) => {
+  const handleUpdate = async (
+    id: string,
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     console.log(e, id);
 
-    let form = e.target;
+    const form: any = e.target;
     const formData = {
       name: form?.name?.value,
       description: form?.description?.value,
       image: form?.image?.value,
     };
-    try {
-      const data = await axios.put(`/api/admin/categories?id=${id}`, formData);
-      if (data.status === 200) {
-        alert("Category updated successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
-    }
+    axios
+      .put(`/api/admin/categories?id=${id}`, formData)
+      .then((res) => {
+        toast({
+          title: "Success",
+          description: res.data,
+          className: "bg-green-300",
+        });
+        loadData();
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
+      });
   };
 
   const handleDelete = async (id: string) => {
-    try {
-      const data = await axios.delete(`/api/admin/categories?id=${id}`);
-      if (data.status === 200) {
-        alert("Category deleted successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
-    }
+    axios
+      .delete(`/api/admin/categories?id=${id}`)
+      .then((res) => {
+        toast({
+          title: "Success",
+          description: res.data,
+          className: "bg-green-300",
+        });
+        loadData();
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
+      });
   };
 
   if (loading) return <Skeleton className="w-full h-full rounded-full" />;
@@ -105,18 +156,29 @@ const Page: NextPageWithLayout = () => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px] text-center">SNo</TableHead>
-              <TableHead className="text-center">Name</TableHead>
+              <TableHead className="text-center w-[100px]">Icon</TableHead>
+              <TableHead className="text-center w-[20%]">Name</TableHead>
               <TableHead className="text-center">Description</TableHead>
-              <TableHead className="text-center">
+              <TableHead className="text-center w-[200px]">
                 CreatedAt / UpdateAt
               </TableHead>
-              <TableHead className="text-center">Actions</TableHead>
+              <TableHead className="text-center w-[150px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data?.map((admin: any, index: number) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{index + 1}</TableCell>
+                <TableCell className="font-medium item-center justify-center flex">
+                  {admin?.image ? (
+                    <div
+                      className="w-8 h-8 bg-cover bg-center bg-no-repeat rounded-full"
+                      dangerouslySetInnerHTML={{ __html: admin?.image }}
+                    />
+                  ) : (
+                    <BookIcon className="w-12 h-12  aspect-square object-cover " />
+                  )}
+                </TableCell>
                 <TableCell className="font-medium">{admin.name}</TableCell>
                 <TableCell className="font-medium">
                   {admin.description}
@@ -141,8 +203,13 @@ const Page: NextPageWithLayout = () => {
                         <span className="sr-only">Edit</span>
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-white">
-                      <form onSubmit={(e) => handleUpdate(admin?.id, e)}>
+                    <DialogContent className="bg-white w-full">
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          handleUpdate(admin?.id, e);
+                        }}
+                      >
                         <DialogTitle className="text-lg font-semibold">
                           Update Category
                         </DialogTitle>
@@ -160,7 +227,9 @@ const Page: NextPageWithLayout = () => {
                               type="text"
                               placeholder="Enter category name"
                               id="name"
+                              name="name"
                               required={true}
+                              defaultValue={admin?.name}
                             />
                             <p className="mt-1 text-xs text-gray-500">
                               *This field is required
@@ -173,11 +242,12 @@ const Page: NextPageWithLayout = () => {
                             >
                               Category Description
                             </label>
-                            <Input
+                            <Textarea
                               className="mt-2"
-                              type="text"
                               placeholder="Enter category description"
                               id="description"
+                              name="description"
+                              defaultValue={admin?.description}
                             />
                           </div>
                           <div className="w-full">
@@ -185,13 +255,14 @@ const Page: NextPageWithLayout = () => {
                               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               htmlFor="image"
                             >
-                              Image URL
+                              Svg Icon Image
                             </label>
-                            <Input
+                            <Textarea
                               className="mt-2"
-                              type="text"
-                              placeholder="Enter category image url."
+                              placeholder="Enter category SVG."
                               id="image"
+                              name="image"
+                              defaultValue={admin?.image}
                             />
                           </div>
                           <DialogClose>
@@ -209,8 +280,8 @@ const Page: NextPageWithLayout = () => {
                   <AlertDialog>
                     <AlertDialogTrigger>
                       <Button size="icon" variant="outline">
-                        <DeleteIcon className="w-4 h-4" />
-                        <span className="sr-only">Edit</span>
+                        <Trash2 className="w-4 h-4" />
+                        <span className="sr-only">Delete</span>
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="bg-white">

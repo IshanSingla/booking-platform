@@ -18,6 +18,7 @@ import {
   FileEditIcon,
   ListIcon,
   MailIcon,
+  Trash2,
   UsersIcon,
 } from "lucide-react";
 import React from "react";
@@ -218,8 +219,8 @@ const Page: NextPageWithLayout = () => {
                   <AlertDialog>
                     <AlertDialogTrigger>
                       <Button size="icon" variant="outline">
-                        <DeleteIcon className="w-4 h-4" />
-                        <span className="sr-only">Edit</span>
+                        <Trash2 className="w-4 h-4" />
+                        <span className="sr-only">Delete</span>
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="bg-white">

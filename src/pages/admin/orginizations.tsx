@@ -1,13 +1,20 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Skeleton } from "@/components/ui/skeleton"
-import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
-import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout"
-import { NextPageWithLayout } from "@/types/props"
-import { AdminUserProps } from "@/types/responseTypes"
-import axios from "axios"
-import { FileEditIcon } from "lucide-react"
-import React from "react"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table,
+} from "@/components/ui/table";
+import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
+import { NextPageWithLayout } from "@/types/props";
+import { AdminUserProps } from "@/types/responseTypes";
+import axios from "axios";
+import { FileEditIcon } from "lucide-react";
+import React from "react";
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminUserProps>([]);
@@ -26,9 +33,7 @@ const Page: NextPageWithLayout = () => {
         console.error(err);
       });
   }, []);
-  if (loading) return (
-    <Skeleton className="w-full h-full rounded-full" />
-  )
+  if (loading) return <Skeleton className="w-full h-full rounded-full" />;
 
   return (
     <main className="flex flex-1 flex-col p-4 md:p-10 gap-3">
@@ -64,8 +69,14 @@ const Page: NextPageWithLayout = () => {
                 </TableCell>
                 <TableCell>
                   <div className="">
-                    <div className="text-sm">{new Date(admin?.createdAt)?.toLocaleDateString() ?? ""} {new Date(admin?.createdAt)?.toLocaleTimeString() ?? ""}</div>
-                    <div className="text-xs">{new Date(admin?.updatedAt)?.toLocaleDateString() ?? ""} {new Date(admin?.updatedAt)?.toLocaleTimeString() ?? ""}</div>
+                    <div className="text-sm">
+                      {new Date(admin?.createdAt)?.toLocaleDateString() ?? ""}{" "}
+                      {new Date(admin?.createdAt)?.toLocaleTimeString() ?? ""}
+                    </div>
+                    <div className="text-xs">
+                      {new Date(admin?.updatedAt)?.toLocaleDateString() ?? ""}{" "}
+                      {new Date(admin?.updatedAt)?.toLocaleTimeString() ?? ""}
+                    </div>
                   </div>
                 </TableCell>
                 <TableCell className="">
@@ -80,8 +91,8 @@ const Page: NextPageWithLayout = () => {
         </Table>
       </div>
     </main>
-  )
-}
+  );
+};
 
 Page.getLayout = GlobalAdminLayout;
 
