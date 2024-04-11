@@ -14,13 +14,33 @@ import { AdminOverviewProps } from "@/types/responseTypes";
 import axios from "axios";
 import {
   BuildingIcon,
+  DeleteIcon,
   FileEditIcon,
   ListIcon,
   MailIcon,
   UsersIcon,
 } from "lucide-react";
 import React from "react";
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminOverviewProps>({
@@ -45,9 +65,39 @@ const Page: NextPageWithLayout = () => {
         console.error(err);
       });
   }, []);
-  if (loading) return (
-    <Skeleton className="w-full h-full rounded-full" />
-  )
+
+  const handleDelete = async (id: string) => {
+    try {
+      const data = await axios.delete(`/api/admin/users?id=${id}`);
+      if (data.status === 201) {
+        alert("Category created successfully");
+      } else {
+        alert("An error occurred");
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  const createAdmin = async (id: string, e: any) => {
+    const form = e.target;
+    const formData = {
+      name: form.name.value,
+      phoneNumber: form.phoneNumber.value,
+    };
+    try {
+      const data = await axios.post(`/api/admin/overview`, formData);
+      if (data.status === 200) {
+        alert("Admin created successfully");
+      } else {
+        alert("An error occurred");
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  if (loading) return <Skeleton className="w-full h-full rounded-full" />;
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 h-full w-full">
       <div className=" grid-cols-2 gap-4 md:grid md:gap-8">
@@ -93,7 +143,35 @@ const Page: NextPageWithLayout = () => {
             <div className="text-2xl font-bold">{data.category}</div>
           </CardContent>
         </Card>
-      </div><div className="rounded-lg border">
+      </div>
+
+      <div className="w-full  text-center flex flex-row gap-3 mt-3">
+        <Input placeholder="Search Admin User" className="w-full" />
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+              Create Admin
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="bg-white">
+            <DialogTitle className="text-lg font-semibold">
+              Create Admin
+            </DialogTitle>
+
+            <div className="flex flex-col gap-3">
+              <Input placeholder="Name" />
+              <Input placeholder="PhoneNumber" />
+              <DialogClose>
+                <Button className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+                  Create Admin
+                </Button>
+              </DialogClose>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      <div className="rounded-lg border">
         <Table className="border text-center">
           <TableHeader>
             <TableRow>
@@ -125,15 +203,44 @@ const Page: NextPageWithLayout = () => {
                 </TableCell>
                 <TableCell>
                   <div className="">
-                    <div className="text-sm">{new Date(admin?.createdAt).toLocaleDateString() ?? ""} {new Date(admin?.createdAt).toLocaleTimeString() ?? ""}</div>
-                    <div className="text-xs">{new Date(admin?.updatedAt).toLocaleDateString() ?? ""} {new Date(admin?.updatedAt).toLocaleTimeString() ?? ""}</div>
+                    <div className="text-sm">
+                      {new Date(admin?.createdAt).toLocaleDateString() ?? ""}{" "}
+                      {new Date(admin?.createdAt).toLocaleTimeString() ?? ""}
+                    </div>
+                    <div className="text-xs">
+                      {new Date(admin?.updatedAt).toLocaleDateString() ?? ""}{" "}
+                      {new Date(admin?.updatedAt).toLocaleTimeString() ?? ""}
+                    </div>
                   </div>
                 </TableCell>
+
                 <TableCell className="">
-                  <Button size="icon" variant="ghost">
-                    <FileEditIcon className="w-4 h-4" />
-                    <span className="sr-only">Edit</span>
-                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger>
+                      <Button size="icon" variant="outline">
+                        <DeleteIcon className="w-4 h-4" />
+                        <span className="sr-only">Edit</span>
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="bg-white">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Are you absolutely sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure you want to delete this user?
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          formAction={() => handleDelete(admin?.id)}
+                        >
+                          Continue
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </TableCell>
               </TableRow>
             ))}

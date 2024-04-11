@@ -1,13 +1,32 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Skeleton } from "@/components/ui/skeleton"
-import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
-import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout"
-import { NextPageWithLayout } from "@/types/props"
-import { AdminUserProps } from "@/types/responseTypes"
-import axios from "axios"
-import { FileEditIcon } from "lucide-react"
-import React from "react"
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table,
+} from "@/components/ui/table";
+import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
+import { cn } from "@/lib/cn";
+import { NextPageWithLayout } from "@/types/props";
+import { AdminUserProps } from "@/types/responseTypes";
+import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
+import axios from "axios";
+import { Delete } from "lucide-react";
+import React from "react";
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminUserProps>([]);
@@ -26,9 +45,35 @@ const Page: NextPageWithLayout = () => {
         console.error(err);
       });
   }, []);
-  if (loading) return (
-    <Skeleton className="w-full h-full rounded-full" />
-  )
+
+  const handleUpdate = async (id: string, disabled: boolean) => {
+    const formData = { disabled: !disabled };
+    try {
+      const data = await axios.put(`/api/admin/users?id=${id}`, formData);
+      if (data.status === 200) {
+        alert("User disabled/enabled successfully");
+      } else {
+        alert("An error occurred");
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      const data = await axios.delete(`/api/admin/users?id=${id}`);
+      if (data.status === 200) {
+        alert("User deleted successfully");
+      } else {
+        alert("An error occurred");
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  if (loading) return <Skeleton className="w-full h-full rounded-full" />;
 
   return (
     <main className="flex flex-1 flex-col p-4 md:p-10 gap-3">
@@ -39,7 +84,7 @@ const Page: NextPageWithLayout = () => {
         <Table className="border text-center">
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px] text-center">SNo</TableHead>
+              <TableHead className="w-[100px] text-center">S.No</TableHead>
               <TableHead className="text-center">Name</TableHead>
               <TableHead className="text-center">PhoneNumber</TableHead>
               <TableHead className="text-center">Role</TableHead>
@@ -67,15 +112,56 @@ const Page: NextPageWithLayout = () => {
                 </TableCell>
                 <TableCell>
                   <div className="">
-                    <div className="text-sm">{new Date(admin?.createdAt)?.toLocaleDateString() ?? ""} {new Date(admin?.createdAt)?.toLocaleTimeString() ?? ""}</div>
-                    <div className="text-xs">{new Date(admin?.updatedAt)?.toLocaleDateString() ?? ""} {new Date(admin?.updatedAt)?.toLocaleTimeString() ?? ""}</div>
+                    <div className="text-sm">
+                      {new Date(admin?.createdAt)?.toLocaleDateString() ?? ""}{" "}
+                      {new Date(admin?.createdAt)?.toLocaleTimeString() ?? ""}
+                    </div>
+                    <div className="text-xs">
+                      {new Date(admin?.updatedAt)?.toLocaleDateString() ?? ""}{" "}
+                      {new Date(admin?.updatedAt)?.toLocaleTimeString() ?? ""}
+                    </div>
                   </div>
                 </TableCell>
-                <TableCell className="">
-                  <Button size="icon" variant="ghost">
-                    <FileEditIcon className="w-4 h-4" />
-                    <span className="sr-only">Edit</span>
+                <TableCell
+                  className={cn("flex gap-3 justify-center items-center")}
+                >
+                  <Button
+                    onClick={() => handleUpdate(admin?.id, admin?.disabled)}
+                    variant="outline"
+                    className={
+                      admin.disabled
+                        ? "bg-green-500 text-white"
+                        : "bg-red-500 text-white"
+                    }
+                  >
+                    {admin.disabled ? "Enable" : "Disable"}
                   </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger>
+                      <Button size="icon" variant="outline">
+                        <Delete className="w-4 h-4" />
+                        <span className="sr-only">Edit</span>
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="bg-white">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Are you absolutely sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure you want to delete this user?
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleDelete(admin?.id)}
+                        >
+                          Continue
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </TableCell>
               </TableRow>
             ))}
@@ -83,8 +169,8 @@ const Page: NextPageWithLayout = () => {
         </Table>
       </div>
     </main>
-  )
-}
+  );
+};
 
 Page.getLayout = GlobalAdminLayout;
 
