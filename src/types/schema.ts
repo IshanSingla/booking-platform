@@ -2,7 +2,7 @@ export type UserSchema = {
     id: string;
     name?: string | null;
     phoneNumber: string;
-    role?: 'admin' | 'student' | 'organization' | null;
+    role?: 'SUPERADMIN' | 'ADMIN' | 'STUDENT' | 'ORGANIZATION'
     loginIp: string;
     loginDevice: string;
     createdAt?: Date | string | null;

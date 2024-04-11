@@ -12,14 +12,20 @@ export function UserRequireContext(props: {
             window.location.href = '/?login=true'
         }
     })
+    React.useEffect(() => {
+        if (status === 'authenticated' && (session?.user?.role === 'ADMIN' || session?.user?.role === 'SUPERADMIN')) {
+            window.location.href = '/admin/overview'
+        }
+    }
+        , [status, session])
     if (status === 'loading') return <Loading />
 
     if (status === 'authenticated') {
         if (!session?.user?.role) {
             return <Register />
-        } else if (session?.user?.role === 'student') {
+        } else if (session?.user?.role === 'STUDENT') {
             return props.children
-        } else if (session?.user?.role === 'organization') {
+        } else if (session?.user?.role === 'ORGANIZATION') {
             return props.children
         }
     }

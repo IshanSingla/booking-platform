@@ -13,7 +13,7 @@ async function handler(
                 where: { id: req?.user?.id },
                 data: {
                     name: req.body.name,
-                    role: "student",
+                    role: "STUDENT",
                 },
             });
             res.status(200).json("Success");
@@ -21,7 +21,7 @@ async function handler(
             await prisma.user.update({
                 where: { id: req?.user?.id },
                 data: {
-                    role: "organization",
+                    role: "ORGANIZATION",
                 },
             });
             const data = req.body;

@@ -47,11 +47,40 @@ export default function Login() {
         })
             .then((res) => {
                 if (res?.error) {
-                    toast({
-                        title: "Error",
-                        description: res.error,
-                        className: "bg-red-300",
-                    });
+                    if (res.error === "Invalid Credentials") {
+                        toast({
+                            title: "Error",
+                            description: "Invalid Phone Number or OTP",
+                            className: "bg-red-300",
+                        });
+                    }
+                    else if (res.error === "Invalid Phone Number") {
+                        toast({
+                            title: "Error",
+                            description: "Invalid Phone Number",
+                            className: "bg-red-300",
+                        });
+                    }
+                    else if (res.error === "Invalid OTP") {
+                        toast({
+                            title: "Error",
+                            description: "Invalid OTP",
+                            className: "bg-red-300",
+                        });
+                    }
+                    else if (res.error === "Otp Send Sucessfull") {
+                        toast({
+                            title: "Otp Send Sucessfull",
+                            className: "bg-green-300",
+                        });
+                    }
+                    else {
+                        toast({
+                            title: "Error",
+                            description: res.error,
+                            className: "bg-red-300",
+                        });
+                    }
                     setOtpDisplay(true);
                 } else {
                     toast({
