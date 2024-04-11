@@ -16,18 +16,18 @@ export default async function handler(
   else if (req.method == "PUT") {
     const { id }: any = req.query;
     const formData: FormData = req.body;
-    const updatedItem = await prisma.user.update({
+    await prisma.user.update({
       where: { id },
       data: formData,
     });
-    res.status(200).json(updatedItem);
+    res.status(200).send("Updated Successfully");
   }
   else if (req.method == "DELETE") {
     const { id }: any = req.query;
-    const deletedItem = await prisma.user.delete({ where: { id } });
-    res.status(200).json(deletedItem);
+    await prisma.user.delete({ where: { id } });
+    res.status(200).send("Deleted Successfully");
   }
   else {
-    res.status(404).json("Not Found");
+    res.status(404).send("Not Found");
   }
 }

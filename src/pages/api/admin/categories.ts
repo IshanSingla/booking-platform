@@ -18,7 +18,7 @@ export default async function handler(
    else if (req.method == "POST") {
       const formData: FormData = req.body;
       const createdItem = await prisma.category.create({ data: formData });
-      res.status(201).json(createdItem);
+      res.status(201).json("Created Successfully");
    }
    else if (req.method == "PUT") {
       const { id }: any = req.query;
@@ -27,12 +27,12 @@ export default async function handler(
          where: { id },
          data: formData,
       });
-      res.status(200).json(updatedItem);
+      res.status(200).json("Updated Successfully");
    }
    else if (req.method == "DELETE") {
       const { id }: any = req.query;
       const deletedItem = await prisma.category.delete({ where: { id } });
-      res.status(200).json(deletedItem);
+      res.status(200).json("Deleted Successfully");
    }
    else {
       res.status(404).json("Not Found");

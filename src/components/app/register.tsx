@@ -5,7 +5,6 @@ import { cn } from "@/lib/cn";
 import axios from "axios";
 import { BookIcon, GlobeIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import React from "react";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
@@ -13,9 +12,7 @@ import { ToastAction } from "../ui/toast";
 
 export default function Register() {
     const { update } = useSession();
-    const [type, setType] = React.useState<"student" | "orginization" | null>(
-        null
-    );
+    const [type, setType] = React.useState<"student" | "orginization" | null>();
     const { toast } = useToast()
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

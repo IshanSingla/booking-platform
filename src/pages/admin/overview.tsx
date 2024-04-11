@@ -18,6 +18,7 @@ import {
   FileEditIcon,
   ListIcon,
   MailIcon,
+  Trash2,
   UsersIcon,
 } from "lucide-react";
 import React from "react";
@@ -50,6 +51,38 @@ const Page: NextPageWithLayout = () => {
         console.error(err);
       });
   }, []);
+
+  const handleDelete = async (id: string) => {
+    try {
+      const data = await axios.delete(`/api/admin/users?id=${id}`);
+      if (data.status === 201) {
+        alert("Category created successfully");
+      } else {
+        alert("An error occurred");
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  const createAdmin = async (id: string, e: any) => {
+    const form = e.target;
+    const formData = {
+      name: form.name.value,
+      phoneNumber: form.phoneNumber.value,
+    };
+    try {
+      const data = await axios.post(`/api/admin/overview`, formData);
+      if (data.status === 200) {
+        alert("Admin created successfully");
+      } else {
+        alert("An error occurred");
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   if (loading) return <Skeleton className="w-full h-full rounded-full" />;
   return (
     <main className="flex flex-1 flex-col gap-3 p-4 md:p-10 h-full w-full">
@@ -164,12 +197,13 @@ const Page: NextPageWithLayout = () => {
                     </div>
                   </div>
                 </TableCell>
+
                 <TableCell className="">
                   <AlertDialog>
                     <AlertDialogTrigger>
-                      <Button size="icon" variant="ghost">
-                        <DeleteIcon className="w-4 h-4" />
-                        <span className="sr-only">Edit</span>
+                      <Button size="icon" variant="outline">
+                        <Trash2 className="w-4 h-4" />
+                        <span className="sr-only">Delete</span>
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="bg-white">
@@ -178,14 +212,16 @@ const Page: NextPageWithLayout = () => {
                           Are you absolutely sure?
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                          This action cannot be undone. This will permanently
-                          delete your account and remove your data from our
-                          servers.
+                          Are you sure you want to delete this user?
                         </AlertDialogDescription>
                       </AlertDialogHeader>
-                      <AlertDialogFooter >
+                      <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction >Continue</AlertDialogAction>
+                        <AlertDialogAction
+                          formAction={() => handleDelete(admin?.id)}
+                        >
+                          Continue
+                        </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
