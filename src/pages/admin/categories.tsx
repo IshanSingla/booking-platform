@@ -32,7 +32,9 @@ import { NextPageWithLayout } from "@/types/props";
 import { AdminCategoryProps } from "@/types/responseTypes";
 import axios from "axios";
 import { DeleteIcon, FileEditIcon } from "lucide-react";
-import React from "react";
+import React, { FormEvent } from "react";
+import CreateCategory from "./create-category";
+import { Label } from "@/components/ui/label";
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminCategoryProps>([]);
@@ -52,10 +54,8 @@ const Page: NextPageWithLayout = () => {
       });
   }, []);
 
-  const handleUpdate = async (id: string, e: any) => {
-    console.log(e, id);
-
-    let form = e.target;
+  const handleUpdate = async (id: string, e: FormEvent<HTMLFormElement>) => {
+    let form: any = e.target;
     const formData = {
       name: form?.name?.value,
       description: form?.description?.value,
@@ -97,7 +97,9 @@ const Page: NextPageWithLayout = () => {
               Create Category
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-white"></DialogContent>
+          <DialogContent className="bg-white">
+            {/* <CreateCategory /> */}
+          </DialogContent>
         </Dialog>
       </div>
       <div className="rounded-lg border">
@@ -149,12 +151,12 @@ const Page: NextPageWithLayout = () => {
 
                         <div className="flex flex-col gap-3">
                           <div className="w-full">
-                            <label
+                            <Label
                               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               htmlFor="name"
                             >
                               Category Name
-                            </label>
+                            </Label>
                             <Input
                               className="mt-2"
                               type="text"
@@ -167,12 +169,12 @@ const Page: NextPageWithLayout = () => {
                             </p>
                           </div>
                           <div className="w-full">
-                            <label
+                            <Label
                               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               htmlFor="description"
                             >
                               Category Description
-                            </label>
+                            </Label>
                             <Input
                               className="mt-2"
                               type="text"
@@ -181,12 +183,12 @@ const Page: NextPageWithLayout = () => {
                             />
                           </div>
                           <div className="w-full">
-                            <label
+                            <Label
                               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               htmlFor="image"
                             >
                               Image URL
-                            </label>
+                            </Label>
                             <Input
                               className="mt-2"
                               type="text"

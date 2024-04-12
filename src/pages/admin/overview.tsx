@@ -20,7 +20,7 @@ import {
   MailIcon,
   UsersIcon,
 } from "lucide-react";
-import React from "react";
+import React, { FormEvent } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import {
@@ -67,10 +67,12 @@ const Page: NextPageWithLayout = () => {
   }, []);
 
   const handleDelete = async (id: string) => {
+    console.log(id);
+
     try {
       const data = await axios.delete(`/api/admin/users?id=${id}`);
-      if (data.status === 201) {
-        alert("Category created successfully");
+      if (data.status === 200) {
+        alert("User deleted successfully");
       } else {
         alert("An error occurred");
       }
@@ -79,11 +81,12 @@ const Page: NextPageWithLayout = () => {
     }
   };
 
-  const createAdmin = async (id: string, e: any) => {
-    const form = e.target;
+  const createAdmin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let form: any = e.target;
     const formData = {
-      name: form.name.value,
-      phoneNumber: form.phoneNumber.value,
+      name: form?.name?.value,
+      phoneNumber: form?.phoneNumber?.value,
     };
     try {
       const data = await axios.post(`/api/admin/overview`, formData);
@@ -154,19 +157,24 @@ const Page: NextPageWithLayout = () => {
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-white">
-            <DialogTitle className="text-lg font-semibold">
-              Create Admin
-            </DialogTitle>
+            <form onSubmit={createAdmin}>
+              <DialogTitle className="text-lg font-semibold">
+                Create Admin
+              </DialogTitle>
 
-            <div className="flex flex-col gap-3">
-              <Input placeholder="Name" />
-              <Input placeholder="PhoneNumber" />
-              <DialogClose>
-                <Button className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
-                  Create Admin
-                </Button>
-              </DialogClose>
-            </div>
+              <div className="flex flex-col gap-3">
+                <Input type="text" placeholder="Name" id="name" />
+                <Input type="text" placeholder="PhoneNumber" id="phoneNumber" />
+                <DialogClose>
+                  <Button
+                    type="submit"
+                    className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
+                    Create Admin
+                  </Button>
+                </DialogClose>
+              </div>
+            </form>
           </DialogContent>
         </Dialog>
       </div>
@@ -234,7 +242,7 @@ const Page: NextPageWithLayout = () => {
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                          formAction={() => handleDelete(admin?.id)}
+                          onClick={() => handleDelete(admin?.id)}
                         >
                           Continue
                         </AlertDialogAction>
