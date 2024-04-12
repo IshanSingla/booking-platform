@@ -106,7 +106,7 @@ const Page: NextPageWithLayout = () => {
         <Table className="border text-center">
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px] text-center">SNo</TableHead>
+              <TableHead className="w-[100px] text-center">S.No</TableHead>
               <TableHead className="text-center">Name</TableHead>
               <TableHead className="text-center">Description</TableHead>
               <TableHead className="text-center">
