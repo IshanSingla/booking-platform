@@ -53,7 +53,7 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                             );
                             const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
                             const user = await prisma.user.findFirst({
-                                where: { phoneNumber: phoneNumber },
+                                where: { phoneNumber: phoneNumber, disabled: false },
                             });
                             if (user) {
                                 await prisma.user.update({

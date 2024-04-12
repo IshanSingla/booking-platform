@@ -1,3 +1,4 @@
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -19,21 +20,29 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
 import { cn } from "@/lib/cn";
 import { NextPageWithLayout } from "@/types/props";
 import { AdminUserProps } from "@/types/responseTypes";
 import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 import axios from "axios";
-import { Delete } from "lucide-react";
+import { Delete, Trash2 } from "lucide-react";
 import React from "react";
+
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminUserProps>([]);
   const [loading, setLoading] = React.useState(true);
+  const { toast } = useToast();
 
   React.useEffect(() => {
     setLoading(true);
+    loadData();
+  }, []);
+
+  const loadData = () => {
     axios
       .get("/api/admin/users")
       .then((res) => {
@@ -42,35 +51,93 @@ const Page: NextPageWithLayout = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.error(err);
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
       });
-  }, []);
+  };
 
   const handleUpdate = async (id: string, disabled: boolean) => {
-    const formData = { disabled: !disabled };
-    try {
-      const data = await axios.put(`/api/admin/users?id=${id}`, formData);
-      if (data.status === 200) {
-        alert("User disabled/enabled successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
-    }
+    axios
+      .put(`/api/admin/users?id=${id}`, { disabled })
+      .then((res) => {
+        toast({
+          title: "Success",
+          description: res.data,
+          className: "bg-green-300",
+        });
+        loadData();
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
+      });
   };
 
   const handleDelete = async (id: string) => {
-    try {
-      const data = await axios.delete(`/api/admin/users?id=${id}`);
-      if (data.status === 200) {
-        alert("User deleted successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
-    }
+    axios
+      .delete(`/api/admin/users?id=${id}`)
+      .then((res) => {
+        toast({
+          key: id,
+          title: "Success",
+          description: res.data,
+          className: "bg-green-300",
+        });
+        loadData();
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  key: id,
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
+      });
   };
 
   if (loading) return <Skeleton className="w-full h-full rounded-full" />;
@@ -87,6 +154,7 @@ const Page: NextPageWithLayout = () => {
               <TableHead className="w-[100px] text-center">S.No</TableHead>
               <TableHead className="text-center">Name</TableHead>
               <TableHead className="text-center">PhoneNumber</TableHead>
+              <TableHead className="text-center">Email</TableHead>
               <TableHead className="text-center">Role</TableHead>
               <TableHead className="text-center">Last Login Details</TableHead>
               <TableHead className="text-center">
@@ -102,6 +170,9 @@ const Page: NextPageWithLayout = () => {
                 <TableCell className="font-medium">{admin.name}</TableCell>
                 <TableCell className="font-medium">
                   {admin.phoneNumber}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {admin.email}
                 </TableCell>
                 <TableCell>{admin.role}</TableCell>
                 <TableCell>
@@ -126,7 +197,7 @@ const Page: NextPageWithLayout = () => {
                   className={cn("flex gap-3 justify-center items-center")}
                 >
                   <Button
-                    onClick={() => handleUpdate(admin?.id, admin?.disabled)}
+                    onClick={() => handleUpdate(admin?.id, !admin?.disabled)}
                     variant="outline"
                     className={
                       admin.disabled
@@ -135,12 +206,13 @@ const Page: NextPageWithLayout = () => {
                     }
                   >
                     {admin.disabled ? "Enable" : "Disable"}
+
                   </Button>
                   <AlertDialog>
                     <AlertDialogTrigger>
                       <Button size="icon" variant="outline">
-                        <Delete className="w-4 h-4" />
-                        <span className="sr-only">Edit</span>
+                        <Trash2 className="w-4 h-4" />
+                        <span className="sr-only">Delete</span>
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="bg-white">
