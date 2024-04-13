@@ -211,7 +211,8 @@ const Page: NextPageWithLayout = () => {
                     <AlertDialogTrigger>
                       <Button size="icon" variant="outline">
                         <Trash2 className="w-4 h-4" />
-                        <span className="sr-only">Delete</span>
+                        <span className="sr-only">Delete
+                        </span>
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="bg-white">

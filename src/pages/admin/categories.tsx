@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   TableHead,
@@ -34,16 +35,8 @@ import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
 import { NextPageWithLayout } from "@/types/props";
 import { AdminCategoryProps } from "@/types/responseTypes";
 import axios from "axios";
-<<<<<<< HEAD
-import { DeleteIcon, FileEditIcon } from "lucide-react";
-import React, { FormEvent } from "react";
-import CreateCategory from "./create-category";
-import { Label } from "@/components/ui/label";
-=======
 import { BookIcon, FileEditIcon, Trash2 } from "lucide-react";
 import React from "react";
->>>>>>> 6a59e1e2b73cfce75dadac67ffdf7f0fc43aadbe
-
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminCategoryProps>([]);
   const [loading, setLoading] = React.useState(true);
@@ -67,10 +60,6 @@ const Page: NextPageWithLayout = () => {
       });
   };
 
-<<<<<<< HEAD
-  const handleUpdate = async (id: string, e: FormEvent<HTMLFormElement>) => {
-    let form: any = e.target;
-=======
   const handleUpdate = async (
     id: string,
     e: React.FormEvent<HTMLFormElement>
@@ -78,7 +67,6 @@ const Page: NextPageWithLayout = () => {
     console.log(e, id);
 
     const form: any = e.target;
->>>>>>> 6a59e1e2b73cfce75dadac67ffdf7f0fc43aadbe
     const formData = {
       name: form?.name?.value,
       description: form?.description?.value,
@@ -169,14 +157,9 @@ const Page: NextPageWithLayout = () => {
         <Table className="border text-center">
           <TableHeader>
             <TableRow>
-<<<<<<< HEAD
-              <TableHead className="w-[100px] text-center">S.No</TableHead>
-              <TableHead className="text-center">Name</TableHead>
-=======
               <TableHead className="w-[100px] text-center">SNo</TableHead>
               <TableHead className="text-center w-[100px]">Icon</TableHead>
               <TableHead className="text-center w-[20%]">Name</TableHead>
->>>>>>> 6a59e1e2b73cfce75dadac67ffdf7f0fc43aadbe
               <TableHead className="text-center">Description</TableHead>
               <TableHead className="text-center w-[200px]">
                 CreatedAt / UpdateAt
@@ -260,13 +243,8 @@ const Page: NextPageWithLayout = () => {
                               htmlFor="description"
                             >
                               Category Description
-<<<<<<< HEAD
                             </Label>
                             <Input
-=======
-                            </label>
-                            <Textarea
->>>>>>> 6a59e1e2b73cfce75dadac67ffdf7f0fc43aadbe
                               className="mt-2"
                               placeholder="Enter category description"
                               id="description"
@@ -279,15 +257,9 @@ const Page: NextPageWithLayout = () => {
                               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               htmlFor="image"
                             >
-<<<<<<< HEAD
-                              Image URL
-                            </Label>
-                            <Input
-=======
                               Svg Icon Image
-                            </label>
+                            </Label>
                             <Textarea
->>>>>>> 6a59e1e2b73cfce75dadac67ffdf7f0fc43aadbe
                               className="mt-2"
                               placeholder="Enter category SVG."
                               id="image"
