@@ -146,9 +146,8 @@ export default function Register() {
                                     </div>
                                     <div className=" gap-3 w-full flex flex-col">
                                         <Input
-                                            inputMode="tel"
                                             placeholder="Enter your Name"
-                                            type="tel"
+                                            type="text"
                                             name="name"
                                             required={true}
                                         />
@@ -166,9 +165,8 @@ export default function Register() {
                                     </div>
                                     <div className=" gap-3 w-full flex flex-col">
                                         <Input
-                                            inputMode="tel"
                                             placeholder="Enter your Name"
-                                            type="tel"
+                                            type="text"
                                             name="name"
                                             required={true}
                                         />
