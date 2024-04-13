@@ -2,9 +2,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma"
 
 type FormData = {
-  name: string;
-  description: string;
-  image: string;
+  // name: string;
+  // description: string;
+  // image: string;
+  isVerified: boolean;
 };
 
 export default async function handler(
@@ -23,6 +24,11 @@ export default async function handler(
       data: formData,
     });
     res.status(200).json(updatedItem);
+  }
+  else if (req.method == "DELETE") {
+    const { id }: any = req.query;
+    await prisma.user.delete({ where: { id } });
+    res.status(200).send("Deleted Successfully");
   }
   else {
     res.status(404).json("Not Found");

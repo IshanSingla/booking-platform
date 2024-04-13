@@ -26,7 +26,19 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
 import { DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { ToastAction } from "@radix-ui/react-toast";
+import { toast } from "@/components/ui/use-toast";
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminOverviewProps>({
@@ -40,6 +52,10 @@ const Page: NextPageWithLayout = () => {
 
   React.useEffect(() => {
     setLoading(true);
+    loadData();
+  }, []);
+
+  const loadData = () => {
     axios
       .get("/api/admin/overview")
       .then((res) => {
@@ -48,23 +64,60 @@ const Page: NextPageWithLayout = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.error(err);
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
       });
-  }, []);
+  };
 
   const handleDelete = async (id: string) => {
-    console.log(id);
-
-    try {
-      const data = await axios.delete(`/api/admin/users?id=${id}`);
-      if (data.status === 200) {
-        alert("User deleted successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
-    }
+    axios
+      .delete(`/api/admin/users?id=${id}`)
+      .then((res) => {
+        toast({
+          key: id,
+          title: "Success",
+          description: res.data,
+          className: "bg-green-300",
+        });
+        loadData();
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  key: id,
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
+      });
   };
 
   const createAdmin = async (e: FormEvent<HTMLFormElement>) => {
@@ -74,16 +127,38 @@ const Page: NextPageWithLayout = () => {
       name: form?.name?.value,
       phoneNumber: form?.phoneNumber?.value,
     };
-    try {
-      const data = await axios.post(`/api/admin/overview`, formData);
-      if (data.status === 200) {
-        alert("Admin created successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
-    }
+    axios
+      .post(`api/admin/overview`, formData)
+      .then((res) => {
+        toast({
+          key: formData.phoneNumber,
+          title: "Success",
+          description: res.data,
+          className: "bg-green-300",
+        });
+        loadData();
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  key: formData.phoneNumber,
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
+      });
   };
 
   if (loading) return <Skeleton className="w-full h-full rounded-full" />;
