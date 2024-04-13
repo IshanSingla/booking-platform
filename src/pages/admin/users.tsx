@@ -1,6 +1,7 @@
 
 import {
   AlertDialog,
+  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -26,7 +27,6 @@ import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
 import { cn } from "@/lib/cn";
 import { NextPageWithLayout } from "@/types/props";
 import { AdminUserProps } from "@/types/responseTypes";
-import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 import axios from "axios";
 import { Delete, Trash2 } from "lucide-react";
 import React from "react";
