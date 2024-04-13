@@ -25,18 +25,25 @@ async function handler(
                 },
             });
             const data = req.body;
-            // await prisma.organization.create({
-            //     data: {
-            //         name: data.name,
-            //         description: data.description,
-            //         image: data.image,
-            //         user: {
-            //             connect: {
-            //                 id: req?.user?.id,
-            //             },
-            //         },
-            //     },
-            // });
+            console.log(data);
+            await prisma.organization.create({
+                data: {
+                    name: data.name,
+                    description: data?.description,
+                    logo: data?.logo,
+                    displayName: data?.displayName,
+                    email: data?.email,
+                    phoneNumber: data?.phoneNumber,
+                    address: data?.address,
+                    pincode: data?.pincode,
+                    website: data?.website,
+                    user: {
+                        connect: {
+                            id: req?.user?.id,
+                        },
+                    },
+                },
+            });
             res.status(200).json("Success");
         }
     }

@@ -13,7 +13,11 @@ export default async function handler(
   res: NextApiResponse<any>,
 ) {
   if (req.method == "GET") {
-    const data = await prisma.organization.findMany();
+    const data = await prisma.organization.findMany({
+      include: {
+        user: true,
+      },
+    });
     res.status(200).json(data);
   }
   else if (req.method == "PUT") {
@@ -27,7 +31,7 @@ export default async function handler(
   }
   else if (req.method == "DELETE") {
     const { id }: any = req.query;
-    await prisma.user.delete({ where: { id } });
+    await prisma.organization.delete({ where: { id } });
     res.status(200).send("Deleted Successfully");
   }
   else {

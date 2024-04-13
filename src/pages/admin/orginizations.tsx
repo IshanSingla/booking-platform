@@ -20,7 +20,7 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout";
 import { cn } from "@/lib/cn";
 import { NextPageWithLayout } from "@/types/props";
@@ -33,6 +33,8 @@ import React from "react";
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminUserProps>([]);
   const [loading, setLoading] = React.useState(true);
+  const { toast } = useToast();
+  console.log("data :", data);
 
   React.useEffect(() => {
     setLoading(true);
@@ -41,10 +43,11 @@ const Page: NextPageWithLayout = () => {
 
   const loadData = () => {
     axios
-      .get("/api/admin/organisations")
+      .get("/api/admin/organizations")
       .then((res) => {
+        console.log(res?.data);
         setLoading(false);
-        setData(res.data);
+        setData(res?.data);
       })
       .catch((err) => {
         setLoading(false);
@@ -71,7 +74,7 @@ const Page: NextPageWithLayout = () => {
 
   const handleUpdate = async (id: string, isVerified: boolean) => {
     axios
-      .put(`/api/admin/organisations?id=${id}`, { isVerified })
+      .put(`/api/admin/organizations?id=${id}`, { isVerified })
       .then((res) => {
         toast({
           title: "Success",
@@ -81,6 +84,7 @@ const Page: NextPageWithLayout = () => {
         loadData();
       })
       .catch((err) => {
+        console.log(err.message);
         toast({
           title: "Error",
           description: err.message,
@@ -104,7 +108,7 @@ const Page: NextPageWithLayout = () => {
 
   const handleDelete = async (id: string) => {
     axios
-      .delete(`/api/admin/organisations?id=${id}`)
+      .delete(`/api/admin/organizations?id=${id}`)
       .then((res) => {
         toast({
           key: id,
@@ -150,6 +154,9 @@ const Page: NextPageWithLayout = () => {
             <TableRow>
               <TableHead className="w-[100px] text-center">SNo</TableHead>
               <TableHead className="text-center">Name</TableHead>
+              <TableHead className="text-center">Phone Number</TableHead>
+              <TableHead className="text-center">Role</TableHead>
+              <TableHead className="text-center">Login Device</TableHead>
               <TableHead className="text-center">
                 CreatedAt / UpdateAt
               </TableHead>
@@ -160,15 +167,15 @@ const Page: NextPageWithLayout = () => {
             {data?.map((admin: any, index: number) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{index + 1}</TableCell>
-                <TableCell className="font-medium">{admin.name}</TableCell>
+                <TableCell className="font-medium">{admin?.name}</TableCell>
                 <TableCell className="font-medium">
-                  {admin.phoneNumber}
+                  {admin?.phoneNumber}
                 </TableCell>
-                <TableCell>{admin.role}</TableCell>
+                <TableCell>{admin?.user?.role}</TableCell>
                 <TableCell>
                   <div className="">
-                    <div className="text-sm">{admin?.loginIp}</div>
-                    <div className="text-xs">{admin?.loginDevice}</div>
+                    <div className="text-sm">{admin?.user?.loginIp}</div>
+                    <div className="text-xs">{admin?.user?.loginDevice}</div>
                   </div>
                 </TableCell>
                 <TableCell>
