@@ -38,10 +38,10 @@ const nextConfig = {
   ,
   experimental: {
     optimizePackageImports: ["axios", "input-otp", "@tanstack/react-table", "nextjs-toploader",],
-    staleTimes: {
-      dynamic: 60,
-      static: 180,
-    },
+    // staleTimes: {
+    //   dynamic: 60,
+    //   static: 180,
+    // },
   },
 
 
