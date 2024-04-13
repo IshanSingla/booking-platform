@@ -65,7 +65,7 @@ const Page: NextPageWithLayout = () => {
       <div className="w-full md:w-1/3">
         <label
           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          htmlFor="description"
+          htmlFor="image"
         >
           Image URL
         </label>
