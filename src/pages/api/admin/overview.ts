@@ -23,37 +23,37 @@ export default async function handler(
     return res.status(200).json(data);
   }
   if (req.method == "POST") {
-    const admin = await prisma.user.findOne({
-      where: {
-        phoneNumber: req.body.phoneNumber,
-      },
-    });
-    if (admin) {
-      if (admin.role == "ADMIN") {
-        return res.status(400).json("Admin already exists");
-      } else {
-        await prisma.user.update({
-          where: {
-            id: admin.id,
-          },
-          data: {
-            role: "ADMIN",
-          },
-        });
-        return res.status(200).json("Admin Created");
+    // const admin = await prisma.user.findOne({
+    //   where: {
+    //     phoneNumber: req.body.phoneNumber,
+    //   },
+    // });
+    // if (admin) {
+    //   if (admin.role == "ADMIN") {
+    //     return res.status(400).json("Admin already exists");
+    //   } else {
+    //     await prisma.user.update({
+    //       where: {
+    //         id: admin.id,
+    //       },
+    //       data: {
+    //         role: "ADMIN",
+    //       },
+    //     });
+    //     return res.status(200).json("Admin Created");
 
-      }
-    } else {
-      const admins = await prisma.user.create({
-        data: {
-          name: req.body.name,
-          phoneNumber: req.body.phoneNumber,
-          role: "ADMIN",
-        },
-      });
-      return res.status(200).json("Admin Created");
+    //   }
+    // } else {
+    //   const admins = await prisma.user.create({
+    //     data: {
+    //       name: req.body.name,
+    //       phoneNumber: req.body.phoneNumber,
+    //       role: "ADMIN",
+    //     },
+    //   });
+    //   return res.status(200).json("Admin Created");
 
-    }
+    // }
 
   }
   else {
