@@ -74,11 +74,11 @@ Page.getLayout = GlobalLayout;
 export default Page;
 
 export async function getStaticProps() {
-    const data = await prisma.organization.findMany();
+    // const data = await prisma.organization.findMany();
 
     return {
         props: {
-            data
+            // data
         },
         revalidate: 600,
     }
