@@ -21,6 +21,7 @@ model User {
   createdAt   DateTime? @default(now()) @db.Date
   updatedAt   DateTime? @updatedAt @db.Date
   organizations Organization[]
+  requests     Request[]
 }
 
 enum Role {
@@ -55,19 +56,87 @@ model Organization {
   id          String    @id @default(uuid()) @map("_id")
   user        User?     @relation(fields: [userId], references: [id])
   userId      String?
-  name        String
-  displayName String?
+
   address     String?
   pincode     String?
-  description String?
-  logo        String?
   isVerified  Boolean   @default(false)
   phoneNumber String?
   email       String?
   website     String?
+
+  boardName            String
+  affiliationNumber    String
+  orgName                 String
+  passPercentage       Float
+
+  extracurricular      Extracurricular @relation(fields: [extracurricularId], references: [id])
+  extracurricularId    String
+
+  infrastructure       Infrastructure @relation(fields: [infrastructureId], references: [id])
+  infrastructureId     String
+
+  teacherStudentRatio  Float
+
+  timings              Timing         @relation(fields: [timingId], references: [id])
+  timingId             String
+
+  affordability        Affordability  @relation(fields: [affordabilityId], references: [id])
+  affordabilityId      String
+
+  transportFacility    Boolean
+  youtubeLink          String?
+
   createdAt   DateTime? @default(now()) @db.Date
   updatedAt   DateTime? @updatedAt @db.Date
   requests    Request[]
+}
+
+model Extracurricular {
+  id         String    @id @default(uuid()) @map("_id")
+  sports     Boolean @default(false)
+  arts       Boolean @default(false)
+  music      Boolean @default(false)
+  debate     Boolean @default(false)
+  community  Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization[]
+
+}
+
+model Infrastructure {
+  id           String     @id @default(uuid()) @map("_id")
+  smartClass   Boolean @default(false)
+  library      Boolean @default(false)
+  laboratories Boolean @default(false)
+  playground   Boolean @default(false)
+  computerLab  Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization[]
+}
+
+model Timing {
+  id        String    @id @default(uuid()) @map("_id")
+  startTime String
+  endTime   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization[]
+}
+
+model Affordability {
+  id            String     @id @default(uuid()) @map("_id")
+  admissionFee  String
+  monthlyFee    String
+  scholarships Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization[]
 }
 
 // Requests table
@@ -75,6 +144,8 @@ model Request {
   id             String       @id @default(uuid()) @map("_id")
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId String
+  user           User        @relation(fields: [userId], references: [id])
+  userId         String
   createdAt      DateTime?    @default(now()) @db.Date
   updatedAt      DateTime?    @updatedAt @db.Date
 }

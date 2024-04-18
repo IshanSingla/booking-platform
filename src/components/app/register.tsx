@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import React from "react";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
+import { Checkbox } from "../ui/checkbox";
 
 
 export default function Register() {
@@ -112,7 +113,7 @@ export default function Register() {
                         <form
                             onSubmit={handleSubmit}
                             className={cn(
-                                "md:gap-5 p-4 w-full h-full gap-3 py-3",
+                                "md:gap-5 p-4 w-full h-full gap-3 py-3 overflow-hidden",
                                 !type ? "grid sm:grid-cols-1 lg:grid-cols-2" : "flex flex-row"
                             )}
                         >
@@ -163,7 +164,133 @@ export default function Register() {
                                         <GlobeIcon className="w-12 h-12  aspect-square object-cover " />{" "}
                                         <div className="font-semibold">Orginization</div>
                                     </div>
-                                    <div className=" gap-3 w-full flex flex-col">
+                                    <div className="w-full max-w-lg max-h-[60%] overflow-auto" id="organizationForm">
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="orgName" className="block text-sm font-medium text-gray-700">Organization Name</label>
+                                                <Input type="text" id="orgName" name="orgName" required />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="boardName" className="block text-sm font-medium text-gray-700">Board Name</label>
+                                                <Input type="text" id="boardName" name="boardName" required />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="affiliationNumber" className="block text-sm font-medium text-gray-700">Affiliation Number</label>
+                                                <Input type="text" id="affiliationNumber" name="affiliationNumber" required />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="pincode" className="block text-sm font-medium text-gray-700">Pincode</label>
+                                                <Input type="text" id="pincode" name="pincode/" />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number</label>
+                                                <Input type="text" id="phoneNumber" name="phoneNumber" required />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                                                <Input type="email" id="email" name="email" required />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="passPercentage" className="block text-sm font-medium text-gray-700">Pass Percentage</label>
+                                                <Input type="text" id="passPercentage" name="passPercentage" required />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="teacherStudentRatio" className="block text-sm font-medium text-gray-700">Teacher Student Ratio</label>
+                                                <Input type="text" id="teacherStudentRatio" name="teacherStudentRatio" required />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="transportFacility" className="block text-sm font-medium text-gray-700">transportFacility</label>
+                                                <Checkbox id="transportFacility" name="transportFacility" required />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="pincode" className="block text-sm font-medium text-gray-700">Pincode</label>
+                                                <Input type="text" id="pincode" name="pincode" required />
+                                            </div>
+                                        </div>
+                                        <div className="mb-4">
+                                            <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
+                                            <Input type="text" id="address" name="address" />
+                                        </div>
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="sports" className="block text-sm font-medium text-gray-700">Sports</label>
+                                                <Checkbox id="sports" name="transportFacility" />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="arts" className="block text-sm font-medium text-gray-700">Arts</label>
+                                                <Checkbox id="arts" name="arts" />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="music" className="block text-sm font-medium text-gray-700">Music</label>
+                                                <Checkbox id="music" name="music" />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="debate" className="block text-sm font-medium text-gray-700">Debate</label>
+                                                <Checkbox id="debate" name="debate" />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="community" className="block text-sm font-medium text-gray-700">Community</label>
+                                                <Checkbox id="community" name="community" />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="smartClass" className="block text-sm font-medium text-gray-700">Smart Class</label>
+                                                <Checkbox id="smartClass" name="smartClass" />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="library" className="block text-sm font-medium text-gray-700">Library</label>
+                                                <Checkbox id="library" name="library" />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="laboratories" className="block text-sm font-medium text-gray-700">Laboratories</label>
+                                                <Checkbox id="laboratories" name="laboratories" />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="playground" className="block text-sm font-medium text-gray-700">PlayGround</label>
+                                                <Checkbox id="playground" name="playground" />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="computerLab" className="block text-sm font-medium text-gray-700">ComputerLab</label>
+                                                <Checkbox id="computerLab" name="computerLab" />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="startTime" className="block text-sm font-medium text-gray-700">Start Time</label>
+                                                <Input type="text" id="startTime" name="startTime" required />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">End Time</label>
+                                                <Input type="text" id="endTime" name="endTime" required />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row gap-3 w-full">
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="admissionFee" className="block text-sm font-medium text-gray-700">Admission Fee</label>
+                                                <Input type="text" id="admissionFee" name="admissionFee" required />
+                                            </div>
+                                            <div className="mb-4 w-full">
+                                                <label htmlFor="monthlyFee" className="block text-sm font-medium text-gray-700">Monthly Fee</label>
+                                                <Input type="text" id="monthlyFee" name="monthlyFee" />
+                                            </div>
+                                        </div>
+
+
+                                        <Button variant="outline" type="submit">
+                                            Complete
+                                        </Button>
+                                    </div>
+
+                                    {/* <div className=" gap-3 w-full flex flex-col">
                                         <Input
                                             placeholder="Enter your Name"
                                             type="text"
@@ -173,7 +300,7 @@ export default function Register() {
                                         <Button variant="outline" type="submit">
                                             Complete
                                         </Button>
-                                    </div>
+                                    </div> */}
                                 </>
                             )}
                         </form>
