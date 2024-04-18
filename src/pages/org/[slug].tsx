@@ -1,10 +1,10 @@
-import { GraduationCapIcon } from "lucide-react";
+
 import { NextPageWithLayout } from "@/types/props"
 import GlobalLayout from "@/layout/global";
-import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { OrganizationSchema } from "@/types/schema";
+import { Button } from "@/components/ui/button";
 
 const Page: NextPageWithLayout = (props: any) => {
     if (props.data == "null") {
@@ -35,10 +35,8 @@ const Page: NextPageWithLayout = (props: any) => {
                         <div className="flex items-center space-x-4 lg:col-span-2">
                             <div className="space-y-2">
                                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">{data.orgName}</h1>
-                                <div className="flex items-center space-x-2">
-                                    <GraduationCapIcon className="w-4 h-4" />
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Educating the leaders of tomorrow</p>
-                                </div>
+                                <h3 className="text-lg text-gray-500 dark:text-gray-400">{data.address}, {data.pincode}</h3>
+                                <h5 className="text-sm text-gray-500 dark:text-gray-400">{data.email}, {data.phoneNumber}</h5>
                             </div>
                         </div>
                         <div className="grid gap-6 text-center lg:grid-cols-1 lg:items-start lg:gap-4 ">
@@ -70,24 +68,25 @@ const Page: NextPageWithLayout = (props: any) => {
                             {data?.infrastructure.playground ? "Playground, " : ""}
                             {data?.infrastructure.computerLab ? "Computer Lab, " : ""}
                         </p>
+                        <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">Affordability</h2>
+                        <p className="text-gray-500 dark:text-gray-400">
+                            Admission Fee: {data?.affordability.admissionFee} <br />
+                            Monthly Fee: {data?.affordability.monthlyFee}
+                        </p>
                     </div>
                     <div className="space-y-4">
-                        <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">Representative Student</h2>
-                        <div className="flex items-center space-x-2">
-                            <Image
-                                alt="Student"
-                                className="rounded-full"
-                                height={100}
-                                src="/placeholder.svg"
-                                width={100}
-                                style={
-                                    {
-                                        aspectRatio: "100/100",
-                                        objectFit: "cover",
-                                    }
-                                }
-                            />
-                            <p className="text-base font-medium">Sophia Johnson</p>
+                        <div className="space-y-2">
+                            <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">Transport Facility</h2>
+                            <p className="text-sm text-gray-500 dark:text-gray-400"> {data.transportFacility ? "Available" : "Not Available"}</p>
+                        </div>
+                        <div className="space-y-2">
+                            <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">Teacher Student Ratio</h2>
+                            <p className="text-sm text-gray-500 dark:text-gray-400"> {data.teacherStudentRatio}</p>
+                        </div>
+                        <div className="flex items-center justify-center h-[50%]">
+                            <Button variant={"outline"}>
+                                Contact Us
+                            </Button>
                         </div>
                     </div>
                 </div>
