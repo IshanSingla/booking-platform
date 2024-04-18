@@ -59,6 +59,25 @@ const Page: NextPageWithLayout = () => {
         console.error(err);
       });
   };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let form: any = e.target;
+    const formData = {
+      name: form?.name?.value,
+      description: form?.description.value,
+      image: form?.image.value,
+    };
+    try {
+      const data = await axios.post("/api/admin/categories", formData);
+      if (data.status === 201) {
+        alert("Category created successfully");
+      } else {
+        alert("An error occurred");
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
 
   const handleUpdate = async (
     id: string,
@@ -149,7 +168,63 @@ const Page: NextPageWithLayout = () => {
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-white">
-            {/* <CreateCategory /> */}
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+              <div className="w-full">
+                <Label
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  htmlFor="name"
+                >
+                  Category Name
+                </Label>
+                <Input
+                  className="mt-2"
+                  type="text"
+                  placeholder="Enter category name"
+                  id="name"
+                  name="name"
+                  required={true}
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  *This field is required
+                </p>
+              </div>
+              <div className="w-full">
+                <Label
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  htmlFor="description"
+                >
+                  Category Description
+                </Label>
+                <Input
+                  className="mt-2"
+                  placeholder="Enter category description"
+                  id="description"
+                  name="description"
+                />
+              </div>
+              <div className="w-full">
+                <Label
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  htmlFor="image"
+                >
+                  Svg Icon Image
+                </Label>
+                <Textarea
+                  className="mt-2"
+                  placeholder="Enter category SVG."
+                  id="image"
+                  name="image"
+                />
+              </div>
+              <DialogClose>
+                <Button
+                  type="submit"
+                  className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                >
+                  Create Category
+                </Button>
+              </DialogClose>
+            </form>
           </DialogContent>
         </Dialog>
       </div>
