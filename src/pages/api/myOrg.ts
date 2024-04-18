@@ -1,11 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma"
 
-type FormData = {
-    name: string;
-    description: string;
-    image: string;
-};
+type FormData = any;
 
 export default async function handler(
     req: NextApiRequest,
