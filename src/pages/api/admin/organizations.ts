@@ -12,7 +12,14 @@ export default async function handler(
   res: NextApiResponse<any>,
 ) {
   if (req.method == "GET") {
-    const data = await prisma.organization.findMany();
+    const data = await prisma.organization.findMany({
+      include: {
+        extracurricular: true,
+        infrastructure: true,
+        timings: true,
+        affordability: true,
+      },
+    });
     res.status(200).json(data);
   }
   else if (req.method == "PUT") {
@@ -20,9 +27,11 @@ export default async function handler(
     const formData: FormData = req.body;
     const updatedItem = await prisma.organization.update({
       where: { id },
-      data: formData,
+      data: {
+        isVerified: req.body.isVerified,
+      }
     });
-    res.status(200).json(updatedItem);
+    res.status(200).json("Updated Successfully");
   }
   else {
     res.status(404).json("Not Found");

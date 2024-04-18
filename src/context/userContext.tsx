@@ -3,6 +3,7 @@ import Register from '@/components/app/register'
 import { useSession } from 'next-auth/react'
 import React, { useContext } from 'react'
 import { categoryContext } from './categoryContext'
+import MyOrg from '@/components/app/myOrg'
 
 export function UserRequireContext(props: {
     children: React.ReactNode
@@ -28,7 +29,7 @@ export function UserRequireContext(props: {
         } else if (session?.user?.role === 'STUDENT') {
             return props.children
         } else if (session?.user?.role === 'ORGANIZATION') {
-            return props.children
+            return <MyOrg />
         }
     }
 

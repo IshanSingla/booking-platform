@@ -146,9 +146,13 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                         const org = await prisma.organization.findFirst({
                             where: {
                                 userId: user.id
-
-
                             },
+                            include: {
+                                extracurricular: true,
+                                infrastructure: true,
+                                timings: true,
+                                affordability: true,
+                            }
                         });
 
                         return { ...session, user: { ...user }, org: org };

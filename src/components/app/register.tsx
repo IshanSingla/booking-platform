@@ -9,6 +9,41 @@ import React from "react";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
 import { Checkbox } from "../ui/checkbox";
+import { OrganizationFormData } from "@/types/responseTypes";
+
+function getFormData(event: React.FormEvent): OrganizationFormData {
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const data: OrganizationFormData = {
+        orgName: formData.get('orgName') as string,
+        boardName: formData.get('boardName') as string,
+        affiliationNumber: formData.get('affiliationNumber') as string,
+        pincode: formData.get('pincode') as string,
+        phoneNumber: formData.get('phoneNumber') as string,
+        email: formData.get('email') as string,
+        passPercentage: formData.get('passPercentage') as string,
+        teacherStudentRatio: formData.get('teacherStudentRatio') as string,
+        transportFacility: !!formData.get('transportFacility'), // Convert checkbox value to boolean
+        address: formData.get('address') as string || '', // Handle optional field with empty string default
+        sports: !!formData.get('sports'),
+        arts: !!formData.get('arts'),
+        music: !!formData.get('music'),
+        debate: !!formData.get('debate'),
+        community: !!formData.get('community'),
+        smartClass: !!formData.get('smartClass'),
+        library: !!formData.get('library'),
+        laboratories: !!formData.get('laboratories'),
+        playground: !!formData.get('playground'),
+        computerLab: !!formData.get('computerLab'),
+        startTime: formData.get('startTime') as string,
+        endTime: formData.get('endTime') as string,
+        admissionFee: formData.get('admissionFee') as string,
+        monthlyFee: formData.get('monthlyFee') as string || '', // Handle optional field with empty string default
+    };
+
+    return data;
+}
 
 
 export default function Register() {
@@ -51,10 +86,9 @@ export default function Register() {
                     });
                 });
         } else if (type === "orginization") {
+            console.log(getFormData(e));
             axios
-                .put("/api/auth/register?isOrganization=true", {
-                    name: target?.name?.value,
-                })
+                .put("/api/auth/register?isOrganization=true", getFormData(e))
                 .then((res) => {
                     toast({
                         title: "Completed Registration",

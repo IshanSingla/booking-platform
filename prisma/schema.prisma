@@ -62,12 +62,11 @@ model Organization {
   isVerified  Boolean   @default(false)
   phoneNumber String?
   email       String?
-  website     String?
 
   boardName            String
   affiliationNumber    String
-  orgName                 String
-  passPercentage       Float
+  orgName              String
+  passPercentage       String
 
   extracurricular      Extracurricular @relation(fields: [extracurricularId], references: [id])
   extracurricularId    String
@@ -75,7 +74,7 @@ model Organization {
   infrastructure       Infrastructure @relation(fields: [infrastructureId], references: [id])
   infrastructureId     String
 
-  teacherStudentRatio  Float
+  teacherStudentRatio  String
 
   timings              Timing         @relation(fields: [timingId], references: [id])
   timingId             String
