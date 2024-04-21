@@ -1,9 +1,7 @@
 import { CardContent, Card } from "@/components/ui/card"
 import { BookIcon } from "lucide-react"
 import { useRouter } from "next/router"
-import { prisma } from "@/lib/prisma"
 import GlobalUserRequiredLayout from "@/layout/globalUserRequired"
-import { CategorySchema } from "@/types/schema"
 import { useContext } from "react"
 import { categoryContext } from "@/context/categoryContext"
 

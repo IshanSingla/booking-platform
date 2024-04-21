@@ -74,6 +74,7 @@ export default function Register() {
                         title: "Error",
                         description: err.message,
                         duration: 5000,
+                        className: "bg-red-300",
                         action: <ToastAction onClick={
                             () => {
                                 toast({
@@ -93,6 +94,7 @@ export default function Register() {
                     toast({
                         title: "Completed Registration",
                         description: "Wait for approval from admin",
+                        className: "bg-green-300",
                     });
                     update();
                 })
@@ -101,6 +103,7 @@ export default function Register() {
                         title: "Error",
                         description: err.message,
                         duration: 5000,
+                        className: "bg-red-300",
                         action: <ToastAction onClick={
                             () => {
                                 toast({
