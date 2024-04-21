@@ -5,22 +5,26 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { getFormData } from "./register";
+import { useSession } from "next-auth/react";
 
-export default function DialogUpdateOrganization({ data }: any) {
+export default function DialogUpdateOrganization() {
+    const { data: session } = useSession()
+    const data = session?.org;
     const handleUpdate = async (
-        id: string,
         e: React.FormEvent<HTMLFormElement>
     ) => {
-        console.log(e, id);
-
+        e.preventDefault();
         axios
-            .patch(`/api/myOrg`)
+            .put(`/api/myOrg`, getFormData(e))
             .then((res) => {
                 toast({
                     title: "Success",
                     description: res.data,
                     className: "bg-green-300",
                 });
+
             })
             .catch((err) => {
                 toast({
@@ -47,14 +51,16 @@ export default function DialogUpdateOrganization({ data }: any) {
             });
     };
     return (
-        <>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    handleUpdate(data.id, e);
-                }}
-            >
-                <div className="w-full max-w-xl h-[85vh] overflow-x-hidden">
+        <Dialog>
+            <DialogTrigger className="p-2 !rounded-md hover:text-gray-100 hover:bg-[#307672] border-[1px] border-solid border-black">
+                Edit Profile
+            </DialogTrigger>
+            <DialogContent className="bg-white h-full">
+                <DialogHeader>
+                    <DialogTitle>Update Organization Details</DialogTitle>
+                </DialogHeader>
+                <form
+                    onSubmit={handleUpdate} className="w-full max-w-xl h-full overflow-x-hidden">
                     <div className="flex flex-row gap-3 w-full">
                         <div className="mb-4 w-full">
                             <label
@@ -67,7 +73,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                                 type="text"
                                 id="orgName"
                                 name="orgName"
-                                defaultValue={data.orgName}
+                                defaultValue={data?.orgName}
                             />
                         </div>
                         <div className="mb-4 w-full">
@@ -81,7 +87,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                                 type="text"
                                 id="boardName"
                                 name="boardName"
-                                defaultValue={data.boardName}
+                                defaultValue={data?.boardName}
                             />
                         </div>
                     </div>
@@ -97,7 +103,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                                 type="text"
                                 id="affiliationNumber"
                                 name="affiliationNumber"
-                                defaultValue={data.affiliationNumber}
+                                defaultValue={data?.affiliationNumber}
                             />
                         </div>
                         <div className="mb-4 w-full">
@@ -171,7 +177,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                                 type="text"
                                 id="teacherStudentRatio"
                                 name="teacherStudentRatio"
-                                defaultValue={data.teacherStudentRatio}
+                                defaultValue={data?.teacherStudentRatio}
                             />
                         </div>
                         <div className="mb-4 w-full flex gap-2 flex-row-reverse items-center justify-center">
@@ -184,7 +190,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             <Checkbox
                                 id="transportFacility"
                                 name="transportFacility"
-                                defaultChecked={data.transportFacility}
+                                defaultChecked={data?.transportFacility}
                             />
                         </div>
                     </div>
@@ -199,7 +205,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             type="text"
                             id="address"
                             name="address"
-                            defaultValue={data.address || ""}
+                            defaultValue={data?.address || ""}
                         />
                     </div>
                     <div className="flex flex-row gap-3 w-full">
@@ -213,7 +219,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             <Checkbox
                                 id="sports"
                                 name="sports"
-                                defaultChecked={data.extracurricular.sports || false}
+                                defaultChecked={data?.extracurricular.sports || false}
                             />
                         </div>
                         <div className="mb-4 w-full">
@@ -223,7 +229,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Arts
                             </label>
-                            <Checkbox id="arts" name="arts" defaultChecked={data.extracurricular.arts || false} />
+                            <Checkbox id="arts" name="arts" defaultChecked={data?.extracurricular.arts || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -232,7 +238,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Music
                             </label>
-                            <Checkbox id="music" name="music" defaultChecked={data.extracurricular.music || false} />
+                            <Checkbox id="music" name="music" defaultChecked={data?.extracurricular.music || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -241,7 +247,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Debate
                             </label>
-                            <Checkbox id="debate" name="debate" defaultChecked={data.extracurricular.debate || false} />
+                            <Checkbox id="debate" name="debate" defaultChecked={data?.extracurricular.debate || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -250,7 +256,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Community
                             </label>
-                            <Checkbox id="community" name="community" defaultChecked={data.extracurricular.community || false} />
+                            <Checkbox id="community" name="community" defaultChecked={data?.extracurricular.community || false} />
                         </div>
                     </div>
                     <div className="flex flex-row gap-3 w-full">
@@ -261,7 +267,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Smart Class
                             </label>
-                            <Checkbox id="smartClass" name="smartClass" defaultChecked={data.infrastructure.smartClass || false} />
+                            <Checkbox id="smartClass" name="smartClass" defaultChecked={data?.infrastructure.smartClass || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -270,7 +276,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Library
                             </label>
-                            <Checkbox id="library" name="library" defaultChecked={data.infrastructure.library || false} />
+                            <Checkbox id="library" name="library" defaultChecked={data?.infrastructure.library || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -279,7 +285,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Laboratories
                             </label>
-                            <Checkbox id="laboratories" name="laboratories" defaultChecked={data.infrastructure.laboratories || false} />
+                            <Checkbox id="laboratories" name="laboratories" defaultChecked={data?.infrastructure.laboratories || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -288,7 +294,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 PlayGround
                             </label>
-                            <Checkbox id="playground" name="playground" defaultChecked={data.infrastructure.playground || false} />
+                            <Checkbox id="playground" name="playground" defaultChecked={data?.infrastructure.playground || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -297,34 +303,9 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 ComputerLab
                             </label>
-                            <Checkbox id="computerLab" name="computerLab" defaultChecked={data.infrastructure.computerLab || false} />
+                            <Checkbox id="computerLab" name="computerLab" defaultChecked={data?.infrastructure.computerLab || false} />
                         </div>
                     </div>
-                    {/* <div className="flex flex-row gap-3 w-full">
-                        <div className="mb-4 w-full">
-                            <label
-                                htmlFor="startTime"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                Start Time
-                            </label>
-                            <Input
-                                type="text"
-                                id="startTime"
-                                name="startTime"
-
-                            />
-                        </div>
-                        <div className="mb-4 w-full">
-                            <label
-                                htmlFor="endTime"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                End Time
-                            </label>
-                            <Input type="text" id="endTime" name="endTime" />
-                        </div>
-                    </div> */}
                     <div className="flex flex-row gap-3 w-full">
                         <div className="mb-4 w-full">
                             <label
@@ -337,7 +318,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                                 type="text"
                                 id="admissionFee"
                                 name="admissionFee"
-                                defaultValue={data.affordability.admissionFee}
+                                defaultValue={data?.affordability.admissionFee}
                             />
                         </div>
                         <div className="mb-4 w-full">
@@ -351,16 +332,19 @@ export default function DialogUpdateOrganization({ data }: any) {
                                 type="text"
                                 id="monthlyFee"
                                 name="monthlyFee"
-                                defaultValue={data.affordability.monthlyFee}
+                                defaultValue={data?.affordability.monthlyFee}
                             />
                         </div>
                     </div>
-
-                    <Button variant="outline" type="submit">
-                        Complete
-                    </Button>
-                </div>
-            </form>
-        </>
+                    <DialogFooter >
+                        <DialogClose>
+                            <Button variant="outline" type="submit">
+                                Complete
+                            </Button>
+                        </DialogClose>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
     );
 }

@@ -29,13 +29,13 @@ export default function Navbar() {
                 <span className="sr-only text-gray-500 dark:text-gray-400">LOGO</span>
             </Link>
             <nav className="ml-auto flex gap-4 sm:gap-6 mr-5">
-                <Link className="text-sm font-medium hover:underline underline-offset-4" href="#home">
+                <Link className="text-sm font-medium hover:underline underline-offset-4" href="/#home">
                     Home
                 </Link>
-                <Link className="text-sm font-medium hover:underline underline-offset-4" href="#about">
+                <Link className="text-sm font-medium hover:underline underline-offset-4" href="/#about">
                     About
                 </Link>
-                <Link className="text-sm font-medium hover:underline underline-offset-4" href="#ourServices">
+                <Link className="text-sm font-medium hover:underline underline-offset-4" href="/#ourServices">
                     Our Services
                 </Link>
             </nav>

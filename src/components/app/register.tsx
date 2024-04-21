@@ -11,7 +11,7 @@ import { ToastAction } from "../ui/toast";
 import { Checkbox } from "../ui/checkbox";
 import { OrganizationFormData } from "@/types/responseTypes";
 
-function getFormData(event: React.FormEvent): OrganizationFormData {
+export function getFormData(event: React.FormEvent): OrganizationFormData {
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
 

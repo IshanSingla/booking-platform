@@ -30,8 +30,9 @@ export default function MyOrg() {
                                     <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl flex items-start">
                                         {data?.orgName}
                                         {data?.isVerified && (
-                                            <span title="Verified">
+                                            <span title="Verified" >
                                                 <svg
+                                                    fill="#307672"
                                                     width="28"
                                                     height="28"
                                                     viewBox="0 0 16 16"
@@ -64,27 +65,15 @@ export default function MyOrg() {
                                     </p>
                                     <div className="flex gap-2">
                                         {data?.isVerified ? (
-                                            <Button className="p-2 !rounded-md bg-[#307672] hover:bg-[#307672]">
+                                            <div className="px-3 py-2 rounded-full bg-[#307672]/20 border border-[#307672]">
                                                 Verified
-                                            </Button>
+                                            </div>
                                         ) : (
-                                            <Button className="p-2 !rounded-md bg-[#f44336] hover:bg-[#f44336]">
+                                            <div className="px-3 py-2 rounded-full bg-[#f44336]/20 border border-[#f44336] text-[#f44336]">
                                                 Not Verified
-                                            </Button>
+                                            </div>
                                         )}
-                                        <Dialog>
-                                            <DialogTrigger className="p-2 !rounded-md hover:text-gray-100 hover:bg-[#307672] border-[1px] border-solid border-black">
-                                                Edit Profile
-                                            </DialogTrigger>
-                                            <DialogContent className="bg-white">
-                                                <DialogHeader>
-                                                    <DialogTitle>Update Organization Details</DialogTitle>
-                                                    <DialogDescription>
-                                                        <DialogUpdateOrganization data={data} />
-                                                    </DialogDescription>
-                                                </DialogHeader>
-                                            </DialogContent>
-                                        </Dialog>
+                                        <DialogUpdateOrganization />
                                     </div>
                                 </div>
                             </div>
