@@ -11,7 +11,7 @@ import { UserSchema, OrganizationSchema } from "./schema";
 declare module "next-auth" {
     interface Session {
         user: UserSchema,
-        org?: OrganizationSchema | null,
+        org?: OrganizationSchema,
     }
     interface JWT {
         id: string;

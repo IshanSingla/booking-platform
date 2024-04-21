@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma"
 import { CustomRquest, verifyAuth } from "@/lib/authChecker";
 import { OrganizationFormData } from "@/types/responseTypes";
@@ -82,18 +82,6 @@ async function handler(
                     affordabilityId: fees.id,
                 },
             });
-            // await prisma.organization.create({
-            //     data: {
-            //         name: data.name,
-            //         description: data.description,
-            //         image: data.image,
-            //         user: {
-            //             connect: {
-            //                 id: req?.user?.id,
-            //             },
-            //         },
-            //     },
-            // });
             res.status(200).json("Success");
         }
     }

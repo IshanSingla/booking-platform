@@ -2,7 +2,6 @@ import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { OrganizationSchema } from "@/types/schema";
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -15,7 +14,7 @@ export default function DialogUpdateOrganization({ data }: any) {
         console.log(e, id);
 
         axios
-            .patch(`/api/admin/organizations?id=${id}`)
+            .patch(`/api/myOrg`)
             .then((res) => {
                 toast({
                     title: "Success",
@@ -28,6 +27,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                     title: "Error",
                     description: err.message,
                     duration: 5000,
+                    className: "bg-red-300",
                     action: (
                         <ToastAction
                             onClick={() => {
@@ -223,7 +223,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Arts
                             </label>
-                            <Checkbox id="arts" name="arts" defaultChecked={data.extracurricular.arts || false}/>
+                            <Checkbox id="arts" name="arts" defaultChecked={data.extracurricular.arts || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -232,7 +232,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Music
                             </label>
-                            <Checkbox id="music" name="music" defaultChecked={data.extracurricular.music || false}/>
+                            <Checkbox id="music" name="music" defaultChecked={data.extracurricular.music || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -241,7 +241,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Debate
                             </label>
-                            <Checkbox id="debate" name="debate" defaultChecked={data.extracurricular.debate || false}/>
+                            <Checkbox id="debate" name="debate" defaultChecked={data.extracurricular.debate || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -250,7 +250,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Community
                             </label>
-                            <Checkbox id="community" name="community" defaultChecked={data.extracurricular.community || false}/>
+                            <Checkbox id="community" name="community" defaultChecked={data.extracurricular.community || false} />
                         </div>
                     </div>
                     <div className="flex flex-row gap-3 w-full">
@@ -261,7 +261,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Smart Class
                             </label>
-                            <Checkbox id="smartClass" name="smartClass" defaultChecked={data.infrastructure.smartClass || false}/>
+                            <Checkbox id="smartClass" name="smartClass" defaultChecked={data.infrastructure.smartClass || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -270,7 +270,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Library
                             </label>
-                            <Checkbox id="library" name="library" defaultChecked={data.infrastructure.library || false}/>
+                            <Checkbox id="library" name="library" defaultChecked={data.infrastructure.library || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -279,7 +279,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 Laboratories
                             </label>
-                            <Checkbox id="laboratories" name="laboratories" defaultChecked={data.infrastructure.laboratories || false}/>
+                            <Checkbox id="laboratories" name="laboratories" defaultChecked={data.infrastructure.laboratories || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -288,7 +288,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 PlayGround
                             </label>
-                            <Checkbox id="playground" name="playground" defaultChecked={data.infrastructure.playground || false}/>
+                            <Checkbox id="playground" name="playground" defaultChecked={data.infrastructure.playground || false} />
                         </div>
                         <div className="mb-4 w-full">
                             <label
@@ -297,7 +297,7 @@ export default function DialogUpdateOrganization({ data }: any) {
                             >
                                 ComputerLab
                             </label>
-                            <Checkbox id="computerLab" name="computerLab" defaultChecked={data.infrastructure.computerLab || false}/>
+                            <Checkbox id="computerLab" name="computerLab" defaultChecked={data.infrastructure.computerLab || false} />
                         </div>
                     </div>
                     {/* <div className="flex flex-row gap-3 w-full">
