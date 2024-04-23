@@ -13,7 +13,8 @@ export default async function handler(
 
     const data = await prisma.organization.findMany({
       where: {
-        categoryId: categoryId
+        categoryId: categoryId,
+        isVerified: true
       }
     });
     res.status(200).json(data);
