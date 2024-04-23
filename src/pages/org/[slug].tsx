@@ -5,8 +5,52 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { OrganizationSchema } from "@/types/schema";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/router";
 
 const Page: NextPageWithLayout = (props: any) => {
+    const { toast } = useToast();
+    const router = useRouter();
+    const handle = (e: React.FormEvent<HTMLButtonElement>) => {
+        console.log("clicked");
+        e.preventDefault();
+        toast({
+            title: "Loading",
+            description: "Sending request to the server",
+            className: "bg-blue-300",
+        });
+        axios.post("/api/org?orgId=" + router.query.slug).then((res) => {
+            toast({
+                title: "Success",
+                description: res.data,
+                className: "bg-green-300",
+            });
+        })
+            .catch((err) => {
+                toast({
+                    title: "Error",
+                    description: err.message,
+                    duration: 5000,
+                    className: "bg-red-300",
+                    action: (
+                        <ToastAction
+                            onClick={() => {
+                                toast({
+                                    title: "Api Response",
+                                    description: JSON.stringify(err.response.data),
+                                    className: "bg-red-300",
+                                });
+                            }}
+                            altText="Goto schedule to undo"
+                        >
+                            Check Response
+                        </ToastAction>
+                    ),
+                });
+            });
+    }
     if (props.data == "null") {
         return <div className="flex flex-col items-center min-h-[87vh] justify-center space-y-4 px-4 text-center md:px-6">
             <div className="space-y-2">
@@ -24,7 +68,6 @@ const Page: NextPageWithLayout = (props: any) => {
                 </Link>
             </div>
         </div>
-
     }
     const data: OrganizationSchema = JSON.parse(props.data);
     return (
@@ -44,7 +87,6 @@ const Page: NextPageWithLayout = (props: any) => {
                                 <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">{data.boardName} of Education</h2>
                                 <p className="text-sm text-gray-500 dark:text-gray-400">Affication No: {data.affiliationNumber}</p>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -84,7 +126,7 @@ const Page: NextPageWithLayout = (props: any) => {
                             <p className="text-sm text-gray-500 dark:text-gray-400"> {data.teacherStudentRatio}</p>
                         </div>
                         <div className="flex items-center justify-center h-[50%]">
-                            <Button variant={"outline"}>
+                            <Button variant={"outline"} onClick={handle}>
                                 Contact Us
                             </Button>
                         </div>

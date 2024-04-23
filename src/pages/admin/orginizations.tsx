@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,10 +37,28 @@ const Page: NextPageWithLayout = () => {
       .then((res) => {
         setLoading(false);
         setData(res.data);
-      })
-      .catch((err) => {
+      }).catch((err) => {
         setLoading(false);
-        console.error(err);
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          className: "bg-red-300",
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
       });
   }
 
@@ -59,12 +78,14 @@ const Page: NextPageWithLayout = () => {
           title: "Error",
           description: err.message,
           duration: 5000,
+          className: "bg-red-300",
           action: (
             <ToastAction
               onClick={() => {
                 toast({
                   title: "Api Response",
                   description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
                 });
               }}
               altText="Goto schedule to undo"
@@ -93,13 +114,14 @@ const Page: NextPageWithLayout = () => {
           title: "Error",
           description: err.message,
           duration: 5000,
+          className: "bg-red-300",
           action: (
             <ToastAction
               onClick={() => {
                 toast({
-                  key: id,
                   title: "Api Response",
                   description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
                 });
               }}
               altText="Goto schedule to undo"

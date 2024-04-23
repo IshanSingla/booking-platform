@@ -9,21 +9,43 @@ import React from "react"
 import axios from "axios"
 import { OrganizationSchema } from "@/types/schema"
 import { categoryContext } from "@/context/categoryContext"
+import { useToast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 const Page: NextPageWithLayout = () => {
     const router = useRouter()
     const { categories } = React.useContext(categoryContext)
     const [data, setData] = React.useState<OrganizationSchema[]>([])
+    const { toast } = useToast();
     React.useEffect(() => {
         axios.get(`/api/org?categoryId=${router.query.category}`)
             .then((res) => {
                 setData(res.data)
             })
             .catch((err) => {
-                console.error(err)
-            })
+                toast({
+                    title: "Error",
+                    description: err.message,
+                    duration: 5000,
+                    className: "bg-red-300",
+                    action: (
+                        <ToastAction
+                            onClick={() => {
+                                toast({
+                                    title: "Api Response",
+                                    description: JSON.stringify(err.response.data),
+                                    className: "bg-red-300",
+                                });
+                            }}
+                            altText="Goto schedule to undo"
+                        >
+                            Check Response
+                        </ToastAction>
+                    ),
+                });
+            });
     }
-        , [router.query.category])
+        , [router.query.category, toast])
     return (
         <main className="flex-1">
             <div className="bg-gray-100 py-6 dark:bg-gray-800">
@@ -50,8 +72,8 @@ const Page: NextPageWithLayout = () => {
                     </div>
                 </div>
             </div>
-            {data.length === 0 ? <div className="container flex items-center justify-center h-full  lg:h-[40vh] w-full border">No Category Found</div> :
-                <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10 bg-white">
+            {data.length === 0 ? <div className="container flex items-center justify-center h-full  lg:h-[40vh] w-full border bg-white drop-shadow-md rounded-xl">No Category Found</div> :
+                <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10 bg-white drop-shadow-md rounded-xl">
                     {
                         data.map((org, index) => (
                             <Card key={index} className="flex flex-col gap-2 cursor-pointer hover:drop-shadow-md" onClick={() => router.push(`/org/${org.id}`)}>

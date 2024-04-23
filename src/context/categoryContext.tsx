@@ -22,7 +22,8 @@ export const CategoryProvider = ({ children }: {
         axios.get("/api/categories").then((response) => {
             setCategories(response.data);
             setLoading(false);
-        }).catch((error) => {
+        })
+        .catch((error) => {
             console.error(error);
             setLoading(false);
         });

@@ -73,21 +73,25 @@ export default function Register() {
 
                 })
                 .catch((err) => {
-
                     toast({
                         title: "Error",
                         description: err.message,
                         duration: 5000,
                         className: "bg-red-300",
-                        action: <ToastAction onClick={
-                            () => {
-                                toast({
-                                    title: "Api Response",
-                                    description: JSON.stringify(err.response.data),
-                                });
-                            }
-
-                        } altText="Goto schedule to undo">Check Response</ToastAction>,
+                        action: (
+                            <ToastAction
+                                onClick={() => {
+                                    toast({
+                                        title: "Api Response",
+                                        description: JSON.stringify(err.response.data),
+                                        className: "bg-red-300",
+                                    });
+                                }}
+                                altText="Goto schedule to undo"
+                            >
+                                Check Response
+                            </ToastAction>
+                        ),
                     });
                 });
         } else if (type === "orginization") {
@@ -108,15 +112,20 @@ export default function Register() {
                         description: err.message,
                         duration: 5000,
                         className: "bg-red-300",
-                        action: <ToastAction onClick={
-                            () => {
-                                toast({
-                                    title: "Api Response",
-                                    description: JSON.stringify(err.response.data),
-                                });
-                            }
-
-                        } altText="Goto schedule to undo">Check Response</ToastAction>,
+                        action: (
+                            <ToastAction
+                                onClick={() => {
+                                    toast({
+                                        title: "Api Response",
+                                        description: JSON.stringify(err.response.data),
+                                        className: "bg-red-300",
+                                    });
+                                }}
+                                altText="Goto schedule to undo"
+                            >
+                                Check Response
+                            </ToastAction>
+                        ),
                     });
                 });
         }

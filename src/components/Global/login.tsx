@@ -29,6 +29,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useRouter } from "next/router";
 import { useToast } from "../ui/use-toast";
+import { ToastAction } from "../ui/toast";
 
 export default function Login() {
     const { data: Sesssion, status } = useSession();
@@ -90,7 +91,28 @@ export default function Login() {
                     router.push("/app");
                 }
             })
-            .catch((error) => { });
+            .catch((err) => {
+                toast({
+                    title: "Error",
+                    description: err.message,
+                    duration: 5000,
+                    className: "bg-red-300",
+                    action: (
+                        <ToastAction
+                            onClick={() => {
+                                toast({
+                                    title: "Api Response",
+                                    description: JSON.stringify(err.response.data),
+                                    className: "bg-red-300",
+                                });
+                            }}
+                            altText="Goto schedule to undo"
+                        >
+                            Check Response
+                        </ToastAction>
+                    ),
+                });
+            });
     };
     if (status === "unauthenticated") {
         var result = (

@@ -1,7 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 import { GlobalAdminLayout } from "@/layout/GlobalAdminLayout"
 import { NextPageWithLayout } from "@/types/props"
 import { AdminUserProps } from "@/types/responseTypes"
@@ -12,6 +15,7 @@ import React from "react"
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminUserProps>([]);
   const [loading, setLoading] = React.useState(true);
+  const { toast } = useToast();
 
   React.useEffect(() => {
     setLoading(true);
@@ -20,10 +24,28 @@ const Page: NextPageWithLayout = () => {
       .then((res) => {
         setLoading(false);
         setData(res.data);
-      })
-      .catch((err) => {
+      }).catch((err) => {
         setLoading(false);
-        console.error(err);
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          className: "bg-red-300",
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
       });
   }, []);
   if (loading) return (

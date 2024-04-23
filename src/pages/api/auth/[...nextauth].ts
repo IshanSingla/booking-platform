@@ -140,7 +140,10 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
             }) {
                 if (session) {
                     const user = await prisma.user.findUnique({
-                        where: { id: token.id },
+                        where: {
+                            id: token.id,
+                            disabled: false
+                        },
                     });
                     if (user) {
                         const org = await prisma.organization.findFirst({

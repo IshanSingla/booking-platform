@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   AlertDialog,
   AlertDialogAction,
@@ -53,11 +54,33 @@ const Page: NextPageWithLayout = () => {
       .then((res) => {
         setLoading(false);
         setData(res.data);
-      })
-      .catch((err) => {
+      }).catch((err) => {
         setLoading(false);
-        console.error(err);
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          className: "bg-red-300",
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
       });
+    // .catch((err) => {
+    //   setLoading(false);
+    //   console.error(err);
+    // });
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,16 +90,36 @@ const Page: NextPageWithLayout = () => {
       description: form?.description.value,
       image: form?.image.value,
     };
-    try {
-      const data = await axios.post("/api/admin/categories", formData);
-      if (data.status === 201) {
-        alert("Category created successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
+    axios.post("/api/admin/categories", formData).then((res) => {
+      toast({
+        title: "Success",
+        description: res.data,
+        className: "bg-green-300",
+      });
+      loadData();
     }
+    ).catch((err) => {
+      toast({
+        title: "Error",
+        description: err.message,
+        duration: 5000,
+        className: "bg-red-300",
+        action: (
+          <ToastAction
+            onClick={() => {
+              toast({
+                title: "Api Response",
+                description: JSON.stringify(err.response.data),
+                className: "bg-red-300",
+              });
+            }}
+            altText="Goto schedule to undo"
+          >
+            Check Response
+          </ToastAction>
+        ),
+      });
+    });
   };
 
   const handleUpdate = async (
@@ -106,12 +149,14 @@ const Page: NextPageWithLayout = () => {
           title: "Error",
           description: err.message,
           duration: 5000,
+          className: "bg-red-300",
           action: (
             <ToastAction
               onClick={() => {
                 toast({
                   title: "Api Response",
                   description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
                 });
               }}
               altText="Goto schedule to undo"
@@ -139,12 +184,14 @@ const Page: NextPageWithLayout = () => {
           title: "Error",
           description: err.message,
           duration: 5000,
+          className: "bg-red-300",
           action: (
             <ToastAction
               onClick={() => {
                 toast({
                   title: "Api Response",
                   description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
                 });
               }}
               altText="Goto schedule to undo"

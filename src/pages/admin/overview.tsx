@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from "@/components/ui/button";
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import {
@@ -26,6 +27,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const Page: NextPageWithLayout = () => {
   const [data, setData] = React.useState<AdminOverviewProps>({
@@ -36,6 +39,7 @@ const Page: NextPageWithLayout = () => {
     admins: [],
   });
   const [loading, setLoading] = React.useState(true);
+  const { toast } = useToast();
 
   React.useEffect(() => {
     setLoading(true);
@@ -44,26 +48,64 @@ const Page: NextPageWithLayout = () => {
       .then((res) => {
         setLoading(false);
         setData(res.data);
-      })
-      .catch((err) => {
+      }).catch((err) => {
         setLoading(false);
-        console.error(err);
+        toast({
+          title: "Error",
+          description: err.message,
+          duration: 5000,
+          className: "bg-red-300",
+          action: (
+            <ToastAction
+              onClick={() => {
+                toast({
+                  title: "Api Response",
+                  description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
+                });
+              }}
+              altText="Goto schedule to undo"
+            >
+              Check Response
+            </ToastAction>
+          ),
+        });
       });
   }, []);
 
   const handleDelete = async (id: string) => {
     console.log(id);
 
-    try {
-      const data = await axios.delete(`/api/admin/users?id=${id}`);
-      if (data.status === 200) {
-        alert("User deleted successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
+
+    axios.delete(`/api/admin/users?id=${id}`).then((res) => {
+      toast({
+        title: "Success",
+        description: res.data,
+        className: "bg-green-300",
+      });
     }
+    ).catch((err) => {
+      toast({
+        title: "Error",
+        description: err.message,
+        duration: 5000,
+        className: "bg-red-300",
+        action: (
+          <ToastAction
+            onClick={() => {
+              toast({
+                title: "Api Response",
+                description: JSON.stringify(err.response.data),
+                className: "bg-red-300",
+              });
+            }}
+            altText="Goto schedule to undo"
+          >
+            Check Response
+          </ToastAction>
+        ),
+      });
+    });
   };
 
   const createAdmin = async (e: FormEvent<HTMLFormElement>) => {
@@ -73,16 +115,34 @@ const Page: NextPageWithLayout = () => {
       name: form?.name?.value,
       phoneNumber: form?.phoneNumber?.value,
     };
-    try {
-      const data = await axios.post(`/api/admin/overview`, formData);
-      if (data.status === 200) {
-        alert("Admin created successfully");
-      } else {
-        alert("An error occurred");
-      }
-    } catch (error: any) {
-      alert(error.message);
-    }
+    const data = await axios.post(`/api/admin/overview`, formData).then((res) => {
+      toast({
+        title: "Success",
+        description: res.data,
+        className: "bg-green-300",
+      });
+    }).catch((err) => {
+      toast({
+        title: "Error",
+        description: err.message,
+        duration: 5000,
+        className: "bg-red-300",
+        action: (
+          <ToastAction
+            onClick={() => {
+              toast({
+                title: "Api Response",
+                description: JSON.stringify(err.response.data),
+                className: "bg-red-300",
+              });
+            }}
+            altText="Goto schedule to undo"
+          >
+            Check Response
+          </ToastAction>
+        ),
+      });
+    });
   };
 
   if (loading) return <Skeleton className="w-full h-full rounded-full" />;

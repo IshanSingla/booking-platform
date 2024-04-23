@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import {
   AlertDialog,
@@ -55,12 +56,14 @@ const Page: NextPageWithLayout = () => {
           title: "Error",
           description: err.message,
           duration: 5000,
+          className: "bg-red-300",
           action: (
             <ToastAction
               onClick={() => {
                 toast({
                   title: "Api Response",
                   description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
                 });
               }}
               altText="Goto schedule to undo"
@@ -88,12 +91,14 @@ const Page: NextPageWithLayout = () => {
           title: "Error",
           description: err.message,
           duration: 5000,
+          className: "bg-red-300",
           action: (
             <ToastAction
               onClick={() => {
                 toast({
                   title: "Api Response",
                   description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
                 });
               }}
               altText="Goto schedule to undo"
@@ -122,13 +127,14 @@ const Page: NextPageWithLayout = () => {
           title: "Error",
           description: err.message,
           duration: 5000,
+          className: "bg-red-300",
           action: (
             <ToastAction
               onClick={() => {
                 toast({
-                  key: id,
                   title: "Api Response",
                   description: JSON.stringify(err.response.data),
+                  className: "bg-red-300",
                 });
               }}
               altText="Goto schedule to undo"

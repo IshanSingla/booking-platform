@@ -40,9 +40,8 @@ export default function DialogUpdateOrganization() {
                             onClick={() => {
                                 toast({
                                     title: "Api Response",
-                                    description: JSON.stringify(
-                                        err.response.data
-                                    ),
+                                    description: JSON.stringify(err.response.data),
+                                    className: "bg-red-300",
                                 });
                             }}
                             altText="Goto schedule to undo"
