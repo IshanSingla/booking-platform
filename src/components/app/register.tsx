@@ -62,6 +62,7 @@ export default function Register() {
             axios
                 .put("/api/auth/register?isStudent=true", {
                     name: target?.name?.value,
+                    email: target?.email?.value,
                 })
                 .then((res) => {
                     toast({
@@ -200,6 +201,12 @@ export default function Register() {
                                             placeholder="Enter your Name"
                                             type="text"
                                             name="name"
+                                            required={true}
+                                        />
+                                        <Input
+                                            placeholder="Enter your Email"
+                                            type="text"
+                                            name="email"
                                             required={true}
                                         />
                                         <Button variant="outline" type="submit">

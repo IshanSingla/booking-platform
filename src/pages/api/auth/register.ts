@@ -14,6 +14,7 @@ async function handler(
                 where: { id: req?.user?.id },
                 data: {
                     name: req.body.name,
+                    email: req.body.email,
                     role: "STUDENT",
                 },
             });
