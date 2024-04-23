@@ -18,25 +18,27 @@ const Page: any = () => {
             {"Let's find the perfect match for your mood."}
           </p>
         </div>
-        <Card className="bg-white">
-          <CardContent className="p-0">
-            <div className="grid gap-3 md:gap-5 sm:grid-cols-2 lg:grid-cols-3 p-4">
-              {categories.map((service, index) => (
-                <Card onClick={
-                  () => router.push(`/org?category=${service.id}`)
-                } key={index} className="flex flex-col gap-2 items-center justify-center p-4 rounded-lg bg-gray-100/40 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
-                  {service?.image ? (
-                    <div
-                      className="w-12 h-12 bg-cover bg-center bg-no-repeat rounded-full"
-                      dangerouslySetInnerHTML={{ __html: service?.image }}
-                    />
-                  ) : (
-                    <BookIcon className="w-12 h-12  aspect-square object-cover " />
-                  )}
-                  <div className="font-semibold w-full text-center">{service.name}</div>
-                </Card>
-              ))}
-            </div>
+        <Card className="bg-white  h-full">
+          <CardContent className="p-0 overflow-hidden">
+            {categories.length === 0 ? <div className="flex items-center justify-center p-4 h-full">No Category Found</div> :
+              <div className="grid gap-3 md:gap-5 sm:grid-cols-2 lg:grid-cols-3 p-4 h-full overflow-auto">
+                {categories.map((service, index) => (
+                  <Card onClick={
+                    () => router.push(`/org?category=${service.id}`)
+                  } key={index} className="flex flex-col gap-2 items-center justify-center p-4 rounded-lg bg-gray-100/40 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
+                    {service?.image ? (
+                      <div
+                        className="w-12 h-12 bg-cover bg-center bg-no-repeat rounded-full"
+                        dangerouslySetInnerHTML={{ __html: service?.image }}
+                      />
+                    ) : (
+                      <BookIcon className="w-12 h-12  aspect-square object-cover " />
+                    )}
+                    <div className="font-semibold w-full text-center">{service.name}</div>
+                  </Card>
+                ))}
+              </div>
+            }
           </CardContent>
         </Card>
       </div>

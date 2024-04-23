@@ -50,31 +50,34 @@ const Page: NextPageWithLayout = () => {
                     </div>
                 </div>
             </div>
-            <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10 bg-white">
-                {data.map((org, index) => (
-                    <Card key={index} className="flex flex-col gap-2 cursor-pointer hover:drop-shadow-md" onClick={() => router.push(`/org/${org.id}`)}>
-                        <CardHeader className="pb-0">
-                            <CardTitle className="text-2xl font-bold leading-none">{org.orgName}</CardTitle>
-                            <CardDescription className="text-gray-500">
-                                <div>{org.boardName} of Education</div>
-                                <div>
-                                    {org.address}, {org.pincode}
-                                </div>
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="flex flex-wrap gap-2 justify-end">
+            {data.length === 0 ? <div className="container flex items-center justify-center h-full  lg:h-[40vh] w-full border">No Category Found</div> :
+                <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10 bg-white">
+                    {
+                        data.map((org, index) => (
+                            <Card key={index} className="flex flex-col gap-2 cursor-pointer hover:drop-shadow-md" onClick={() => router.push(`/org/${org.id}`)}>
+                                <CardHeader className="pb-0">
+                                    <CardTitle className="text-2xl font-bold leading-none">{org.orgName}</CardTitle>
+                                    <CardDescription className="text-gray-500">
+                                        <div>{org.boardName} of Education</div>
+                                        <div>
+                                            {org.address}, {org.pincode}
+                                        </div>
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className="flex flex-wrap gap-2 justify-end">
 
 
-                        </CardContent>
-                        <CardFooter className="mt-auto grid gap-2">
-                            <div className="text-sm font-medium">Contact:</div>
-                            <div className="text-sm">{org.email}</div>
-                            <div className="text-sm">{org.phoneNumber}</div>
+                                </CardContent>
+                                <CardFooter className="mt-auto grid gap-2">
+                                    <div className="text-sm font-medium">Contact:</div>
+                                    <div className="text-sm">{org.email}</div>
+                                    <div className="text-sm">{org.phoneNumber}</div>
 
-                        </CardFooter>
-                    </Card>
-                ))}
-            </div>
+                                </CardFooter>
+                            </Card>
+                        ))}
+                </div>
+            }
         </main>
     )
 }
