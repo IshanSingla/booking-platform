@@ -1,22 +1,10 @@
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import React from "react";
 import { Layout } from "@/layout/global";
-
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import DialogUpdateOrganization from "./dialogUpdateOrganization";
 
 export default function MyOrg() {
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const data = session?.org;
 
     return (

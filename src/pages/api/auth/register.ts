@@ -80,6 +80,7 @@ async function handler(
                     infrastructureId: infrastructure.id,
                     timingId: timings.id,
                     affordabilityId: fees.id,
+                    categoryId: data.categoryId,
                 },
             });
             res.status(200).json("Success");

@@ -127,6 +127,7 @@ const Page: NextPageWithLayout = () => {
               <TableHead className="text-center">Address / Pincode</TableHead>
               <TableHead className="text-center">Email / Phone Number</TableHead>
               <TableHead className="text-center">Extra Curricular / Infrastructure</TableHead>
+              <TableHead className="text-center">Category</TableHead>
               <TableHead className="text-center">
                 CreatedAt / UpdateAt
               </TableHead>
@@ -172,6 +173,12 @@ const Page: NextPageWithLayout = () => {
                       {admin?.infrastructure.playground ? "Playground, " : ""}
                       {admin?.infrastructure.computerLab ? "Computer Lab, " : ""}
                     </div>
+                  </div>
+                </TableCell>
+                <TableCell className="font-medium">
+                  <div className="">
+                    <div className="text-sm">{admin?.category?.name}</div>
+                    <div className="text-xs">{admin?.category?.description} </div>
                   </div>
                 </TableCell>
                 <TableCell>

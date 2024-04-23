@@ -36,6 +36,7 @@ export interface OrganizationFormData {
   endTime: string;
   admissionFee: string; // May need conversion to number later if used for calculations
   monthlyFee: string; // Optional field
+  categoryId: string;
 }
 
 export type AdminUserProps = UserSchema[]

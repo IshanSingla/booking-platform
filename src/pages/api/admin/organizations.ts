@@ -18,6 +18,7 @@ export default async function handler(
         infrastructure: true,
         timings: true,
         affordability: true,
+        category: true,
       },
     });
     res.status(200).json(data);
@@ -29,7 +30,7 @@ export default async function handler(
       where: { id },
       data: {
         isVerified: req.body.isVerified,
-      }
+      },
     });
     res.status(200).json("Updated Successfully");
   }

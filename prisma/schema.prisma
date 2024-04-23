@@ -10,7 +10,7 @@ datasource db {
 
 // User table
 model User {
-  id          String    @id @default(uuid()) @map("_id")
+  id          String    @id @default(uuid()) @map("_id") 
   name        String?
   phoneNumber String    @unique(map: "phoneNumber_1")
   role        Role?
@@ -47,6 +47,7 @@ model Category {
   name        String
   description String?
   image       String?
+  organizations Organization[]
   createdAt   DateTime? @default(now()) @db.Date
   updatedAt   DateTime? @updatedAt @db.Date
 }
@@ -54,8 +55,12 @@ model Category {
 // Organization table
 model Organization {
   id          String    @id @default(uuid()) @map("_id")
+
   user        User?     @relation(fields: [userId], references: [id])
   userId      String?
+
+  category    Category?  @relation(fields: [categoryId], references: [id])
+  categoryId  String?
 
   address     String?
   pincode     String?

@@ -10,6 +10,8 @@ import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
 import { Checkbox } from "../ui/checkbox";
 import { OrganizationFormData } from "@/types/responseTypes";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { categoryContext } from "@/context/categoryContext";
 
 export function getFormData(event: React.FormEvent): OrganizationFormData {
     const form = event.target as HTMLFormElement;
@@ -40,6 +42,7 @@ export function getFormData(event: React.FormEvent): OrganizationFormData {
         endTime: formData.get('endTime') as string,
         admissionFee: formData.get('admissionFee') as string,
         monthlyFee: formData.get('monthlyFee') as string || '', // Handle optional field with empty string default
+        categoryId: formData.get('category') as string,
     };
 
     return data;
@@ -47,6 +50,7 @@ export function getFormData(event: React.FormEvent): OrganizationFormData {
 
 
 export default function Register() {
+    const { categories } = React.useContext(categoryContext)
     const { update } = useSession();
     const [type, setType] = React.useState<"student" | "orginization" | null>();
     const { toast } = useToast()
@@ -248,8 +252,18 @@ export default function Register() {
                                                 <Checkbox id="transportFacility" name="transportFacility" required />
                                             </div>
                                             <div className="mb-4 w-full">
-                                                <label htmlFor="pincode" className="block text-sm font-medium text-gray-700">Pincode</label>
-                                                <Input type="text" id="pincode" name="pincode" required />
+                                                <label htmlFor="pincode" className="block text-sm font-medium text-gray-700">Category</label>
+                                                <Select name="category" required>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select Category" />
+                                                    </SelectTrigger>
+                                                    <SelectContent className="bg-white">
+                                                        {categories.map((category) => (
+                                                            <SelectItem key={category.id} value={category.id ?? ""}>{category.name}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+
+                                                </Select>
                                             </div>
                                         </div>
                                         <div className="mb-4">

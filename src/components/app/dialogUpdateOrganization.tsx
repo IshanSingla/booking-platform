@@ -1,15 +1,18 @@
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { getFormData } from "./register";
 import { useSession } from "next-auth/react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { categoryContext } from "@/context/categoryContext";
 
 export default function DialogUpdateOrganization() {
+    const { categories } = React.useContext(categoryContext)
     const { data: session } = useSession()
     const data = session?.org;
     const handleUpdate = async (
@@ -180,18 +183,25 @@ export default function DialogUpdateOrganization() {
                                 defaultValue={data?.teacherStudentRatio}
                             />
                         </div>
-                        <div className="mb-4 w-full flex gap-2 flex-row-reverse items-center justify-center">
-                            <label
-                                htmlFor="transportFacility"
-                                className="block text-sm font-medium text-gray-700 capitalize"
-                            >
-                                transport facility
-                            </label>
-                            <Checkbox
-                                id="transportFacility"
-                                name="transportFacility"
-                                defaultChecked={data?.transportFacility}
-                            />
+                    </div>
+                    <div className="flex flex-row gap-3 w-full">
+                        <div className="mb-4 w-full">
+                            <label htmlFor="transportFacility" className="block text-sm font-medium text-gray-700">transportFacility</label>
+                            <Checkbox id="transportFacility" name="transportFacility" required />
+                        </div>
+                        <div className="mb-4 w-full">
+                            <label htmlFor="pincode" className="block text-sm font-medium text-gray-700">Category</label>
+                            <Select name="category" required>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select Category" />
+                                </SelectTrigger>
+                                <SelectContent className="bg-white">
+                                    {categories.map((category) => (
+                                        <SelectItem key={category.id} value={category.id ?? ""}>{category.name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+
+                            </Select>
                         </div>
                     </div>
                     <div className="mb-4">

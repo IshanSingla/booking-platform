@@ -73,6 +73,7 @@ export default function Login() {
                             title: "Otp Send Sucessfull",
                             className: "bg-green-300",
                         });
+                        setOtpDisplay(true);
                     }
                     else {
                         toast({
@@ -81,7 +82,6 @@ export default function Login() {
                             className: "bg-red-300",
                         });
                     }
-                    setOtpDisplay(true);
                 } else {
                     toast({
                         title: "Login Successful",

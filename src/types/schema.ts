@@ -49,9 +49,11 @@ export interface OrganizationSchema {
     timings: TimingSchema;
     affordability: AffordabilitySchema;
     transportFacility: boolean;
+    categoryId: string;
     createdAt: Date;
     updatedAt: Date;
     requests: RequestSchema[];
+    category: CategorySchema | null;
 }
 
 export interface ExtracurricularSchema {

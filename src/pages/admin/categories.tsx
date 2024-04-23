@@ -249,7 +249,7 @@ const Page: NextPageWithLayout = () => {
                 <TableCell className="font-medium item-center justify-center flex">
                   {admin?.image ? (
                     <div
-                      className="w-8 h-8 bg-cover bg-center bg-no-repeat rounded-full"
+                      className="w-12 h-12 bg-cover bg-center bg-no-repeat rounded-full"
                       dangerouslySetInnerHTML={{ __html: admin?.image }}
                     />
                   ) : (
