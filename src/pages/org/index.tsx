@@ -5,9 +5,25 @@ import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card }
 import { useRouter } from "next/router"
 import { NextPageWithLayout } from "@/types/props"
 import GlobalUserRequiredLayout from "@/layout/globalUserRequired"
+import React from "react"
+import axios from "axios"
+import { OrganizationSchema } from "@/types/schema"
+import { categoryContext } from "@/context/categoryContext"
 
 const Page: NextPageWithLayout = () => {
     const router = useRouter()
+    const { categories } = React.useContext(categoryContext)
+    const [data, setData] = React.useState<OrganizationSchema[]>([])
+    React.useEffect(() => {
+        axios.get(`/api/org?categoryId=${router.query.category}`)
+            .then((res) => {
+                setData(res.data)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+    }
+        , [router.query.category])
     return (
         <main className="flex-1">
             <div className="bg-gray-100 py-6 dark:bg-gray-800">
@@ -16,6 +32,9 @@ const Page: NextPageWithLayout = () => {
                         <h1 className="text-3xl font-bold">Organizations</h1>
                         <p className="text-gray-500 dark:text-gray-400">Explore the organizations using the form below</p>
                     </div>
+                    <div className="">Category: {categories.find(
+                        (category) => category.id === router.query.category
+                    )?.name}</div>
                     <div className="grid gap-4">
                         <div className="flex flex-col gap-2 md:flex-row md:items-end md:gap-4 lg:gap-6">
                             <div className="w-full grid gap-1">
@@ -24,7 +43,7 @@ const Page: NextPageWithLayout = () => {
                                 </Label>
                                 <Input className="w-full max-w-[400px] text-xl text-gray-500" id="location" placeholder="Enter a location" />
                             </div>
-                            <Button className="w-full md:w-auto" size="lg" >
+                            <Button size="lg" variant={"outline"}  >
                                 Search
                             </Button>
                         </div>
@@ -32,36 +51,29 @@ const Page: NextPageWithLayout = () => {
                 </div>
             </div>
             <div className="container grid gap-6 px-4 py-6 md:px-6 lg:grid-cols-2 lg:gap-10 bg-white">
-                <Card className="flex flex-col gap-2" onClick={() => router.push('/org/123')}>
-                    <CardHeader className="pb-0">
-                        <CardTitle className="text-2xl font-bold leading-none">LOGO</CardTitle>
-                        <CardDescription className="text-gray-500">
-                            The description of the organization goes here. It can be a little bit longer.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-wrap gap-2">
-                        <div className="rounded-md border w-[120px] h-8 flex items-center justify-center">Category 1</div>
-                    </CardContent>
-                    <CardFooter className="mt-auto grid gap-2">
-                        <div className="text-sm font-medium">Contact:</div>
-                        <Button size="sm">Message</Button>
-                    </CardFooter>
-                </Card>
-                <Card className="flex flex-col gap-2" onClick={() => router.push('/app/org/123')}>
-                    <CardHeader className="pb-0">
-                        <CardTitle className="text-2xl font-bold leading-none">Example Corp</CardTitle>
-                        <CardDescription className="text-gray-500">
-                            The description of the organization goes here. It can be a little bit longer.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-wrap gap-2">
-                        <div className="rounded-md border w-[120px] h-8 flex items-center justify-center">Category 1</div>
-                    </CardContent>
-                    <CardFooter className="mt-auto grid gap-2">
-                        <div className="text-sm font-medium">Contact:</div>
-                        <Button size="sm">Message</Button>
-                    </CardFooter>
-                </Card>
+                {data.map((org, index) => (
+                    <Card key={index} className="flex flex-col gap-2 cursor-pointer hover:drop-shadow-md" onClick={() => router.push(`/org/${org.id}`)}>
+                        <CardHeader className="pb-0">
+                            <CardTitle className="text-2xl font-bold leading-none">{org.orgName}</CardTitle>
+                            <CardDescription className="text-gray-500">
+                                <div>{org.boardName} of Education</div>
+                                <div>
+                                    {org.address}, {org.pincode}
+                                </div>
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex flex-wrap gap-2 justify-end">
+
+
+                        </CardContent>
+                        <CardFooter className="mt-auto grid gap-2">
+                            <div className="text-sm font-medium">Contact:</div>
+                            <div className="text-sm">{org.email}</div>
+                            <div className="text-sm">{org.phoneNumber}</div>
+
+                        </CardFooter>
+                    </Card>
+                ))}
             </div>
         </main>
     )
