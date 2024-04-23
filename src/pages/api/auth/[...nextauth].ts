@@ -155,6 +155,17 @@ const getOptions = (req: CustomNextApiRequest, res: NextApiResponse) => {
                                 infrastructure: true,
                                 timings: true,
                                 affordability: true,
+                                requests: {
+                                    include: {
+                                        user: {
+                                            select: {
+                                                name: true,
+                                                phoneNumber: true,
+                                                email: true,
+                                            }
+                                        },
+                                    },
+                                }
                             }
                         });
 

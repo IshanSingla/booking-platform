@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import React from "react";
 import { Layout } from "@/layout/global";
 import DialogUpdateOrganization from "./dialogUpdateOrganization";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 export default function MyOrg() {
     const { data: session } = useSession();
@@ -121,8 +122,46 @@ export default function MyOrg() {
                             <h1 className="text-2xl font-bold tracking-tighter sm:text-4xl">
                                 Requests
                             </h1>
-                            <div className="flex flex-col gap-4 w-full h-full border rounded-md bg-white"></div>
+                            <Table className="border text-center h-full bg-white">
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead className=" text-center">SNo</TableHead>
+                                        <TableHead className="text-center">User</TableHead>
+                                        <TableHead className="text-center">
+                                            CreatedAt / UpdateAt
+                                        </TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {data?.requests?.map((data, index: number) => (
+                                        <TableRow key={index}>
+                                            <TableCell className="font-medium">{index + 1}</TableCell>
+                                            <TableCell className="font-medium">
+                                                <div>{data.user.name}</div>
+                                                <div>{data.user.phoneNumber}</div>
+                                                <div>{data.user.email}</div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="">
+                                                    <div className="text-sm">
+                                                        {new Date(data.createdAt)?.toLocaleDateString() ?? ""}{" "}
+                                                        {new Date(data.createdAt)?.toLocaleTimeString() ?? ""}
+                                                    </div>
+                                                    <div className="text-xs">
+                                                        {new Date(data.updatedAt)?.toLocaleDateString() ?? ""}{" "}
+                                                        {new Date(data.updatedAt)?.toLocaleTimeString() ?? ""}
+                                                    </div>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                            {/* <div className="flex flex-col gap-4 w-full h-full border rounded-md bg-white">
+
+                            </div> */}
                         </div>
+
                     </div>
                 </div>
             </main>
