@@ -17,7 +17,6 @@ model User {
   role        Role?
   loginIp     String?
   loginDevice String?
-  email       String?
   disabled    Boolean   @default(false)
   createdAt   DateTime? @default(now()) @db.Date
   updatedAt   DateTime? @updatedAt @db.Date
